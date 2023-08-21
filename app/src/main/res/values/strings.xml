@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="api_call">API Call</string>
+    <string name="container">Switch screen</string>
+    <string name="textview">Algorithm: A word used by programmers when they don\'t want to explain how their code works.</string>
+    <string name="button">Button</string>
+    <string name="textviewdsffds">well idk how to get back :}</string>
+
+    <string-array name="spinner_options">
+        <item>Any</item>
+        <item>Programming</item>
+        <item>Misc</item>
+        <item>Dark</item>
+        <item>Pun</item>
+        <item>Spooky</item>
+        <item>Christmas</item>
+    </string-array>
+</resources>
