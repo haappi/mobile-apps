@@ -1,0 +1,41 @@
+{
+  "image": {
+    "type": "url", // or "base64"
+    "data": "..."
+  },
+  "question": "What is the name of this character?",
+    "answers": [
+      "Billy bob",
+      "Bobby wobby",
+      "bob wobby",
+      "wobby bob"
+    ],
+    "correct": 0,
+    "explanation": "This is the explanation of the correct answer.",
+    "hint": "This is a hint to help the user answer the question.",
+    "meta": {
+        "difficulty": 1,
+        "category": "Category",
+        "tags": [
+            "tag1",
+            "tag2"
+        ]
+    },
+    "references": [ // maybe
+        {
+            "title": "Reference 1",
+            "url": "http://example.com"
+        },
+        {
+            "title": "Reference 2",
+            "url": "http://example.com"
+        }
+    ],
+    "sources": [
+      {
+        // where i got it from?
+        "title": "Source 1",
+        "url": "http://example.com"
+      }
+    ]
+}
