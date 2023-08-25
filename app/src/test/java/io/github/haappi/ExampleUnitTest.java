@@ -1,8 +1,8 @@
-package com.example.myapplication;
-
-import static org.junit.Assert.*;
+package io.github.haappi;
 
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
