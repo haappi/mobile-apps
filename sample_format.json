@@ -1,41 +1,22 @@
-{
-  "image": {
-    "type": "url", // or "base64"
-    "data": "..."
-  },
-  "question": "What is the name of this character?",
+[
+  {
+    "id": 1,
+    "image_type": "url",
+    "image_data": "https://wallpapers.com/images/hd/google-sunset-mountains-chrome-theme-fptnw9bzb312e05l.jpg",
+    "question": "This is a sample test question. The right answer is 'ok'",
     "answers": [
-      "Billy bob",
-      "Bobby wobby",
-      "bob wobby",
-      "wobby bob"
+      "ok",
+      "not ok",
+      "a third one",
+      "a fourth one"
     ],
     "correct": 0,
-    "explanation": "This is the explanation of the correct answer.",
-    "hint": "This is a hint to help the user answer the question.",
-    "meta": {
-        "difficulty": 1,
-        "category": "Category",
-        "tags": [
-            "tag1",
-            "tag2"
-        ]
-    },
-    "references": [ // maybe
-        {
-            "title": "Reference 1",
-            "url": "http://example.com"
-        },
-        {
-            "title": "Reference 2",
-            "url": "http://example.com"
-        }
-    ],
-    "sources": [
-      {
-        // where i got it from?
-        "title": "Source 1",
-        "url": "http://example.com"
-      }
-    ]
-}
+    "explanation": "Just because I felt like it",
+    "hint": "nou",
+    "difficulty": 0,
+    "category": "random",
+    "tags": [],
+    "source": "my brain",
+    "source_url": "quack.boo"
+  }
+]
