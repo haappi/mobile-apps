@@ -15,9 +15,3 @@ jobs:
         run: |
           cd python/
           docker build -t oldie-app-api:latest .
-
-      - name: Restart Container
-        run: |
-          docker stop oldie-app-api
-          docker rm oldie-app-api
-          docker run -d --name oldie-app-api -p 1234:80 oldie-app-api:latest

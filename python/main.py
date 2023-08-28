@@ -1,6 +1,5 @@
 import asqlite
 import json
-import os
 import platform
 import signal
 import time
@@ -26,9 +25,22 @@ class QuestionResponseModel(BaseModel):
     difficulty: int
     category: str
     tags: list[str]
-    source_title: str
+    source: str
     source_url: str
 
+class InputResponseModel(BaseModel):
+    image_type: str
+    image_data: str
+    question: str
+    answers: list[str]
+    correct: int
+    explanation: str
+    hint: str
+    difficulty: int
+    category: str
+    tags: list[str]
+    source: str
+    source_url: str
 
 @app.on_event("startup")
 async def startup_event():
@@ -59,7 +71,7 @@ async def startup_event():
     print("Database setup complete")
 
 
-@app.get("/get-question")
+@app.get("/question")
 async def root(category: str | None = None, difficulty: int | None = None, limit: int | None = 1) -> \
 list[QuestionResponseModel]:
     async with asqlite.connect(db_path) as conn:
@@ -102,13 +114,35 @@ list[QuestionResponseModel]:
                         "hint": question[8],
                         "difficulty": question[9],
                         "tags": json.loads(question[10]),
-                        "source_title": question[11],
+                        "source": question[11],
                         "source_url": question[12]
                     }
                     to_return.append(QuestionResponseModel(**dict_o_values))
             if to_return:
                 return to_return
             raise HTTPException(status_code=404, detail="No questions found")
+
+
+@app.post("/question")
+async def add_question(question: InputResponseModel):
+    async with asqlite.connect(db_path) as conn:
+        async with conn.cursor() as cursor:
+            query = '''
+                INSERT INTO questions (
+                    question, category, image_type, image_data, answers, correct, explanation,
+                    hint, difficulty, tags, source, source_url
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            '''
+            await cursor.execute(query,
+                                 question.question, question.category, question.image_type,
+                                 question.image_data, json.dumps(question.answers),
+                                 question.correct, question.explanation, question.hint,
+                                 question.difficulty, json.dumps(question.tags),
+                                 question.source, question.source_url)
+            await conn.commit()
+
+    return {"message": "Question added successfully"}
 
 
 @app.get("/health")
