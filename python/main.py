@@ -110,7 +110,7 @@ list[QuestionResponseModel]:
 
 @app.get("/health")
 async def health():
-    return {"status": "OK", "uptime": f"{int(time.time())} seconds" - start_time,
+    return {"status": "OK", "uptime": f"{int(time.time())  - start_time} seconds",
             "OS": f"{platform.system()} - {platform.release()}"}
 
 
