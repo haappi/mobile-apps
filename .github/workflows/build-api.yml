@@ -11,8 +11,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Change Directory
-        run: cd ./python
-
       - name: Build Docker image
-        run: docker build -t oldie-app-api:latest -f Dockerfile .
+        run: |
+          cd python/
+          docker build -t oldie-app-api:latest .
