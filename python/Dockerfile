@@ -3,7 +3,7 @@ FROM python:3.11.4-alpine3.18
 WORKDIR /code
 
 COPY requirements.txt /code/requirements.txt
-
+RUN apk update && apk add git
 RUN pip install --no-cache-dir -r /code/requirements.txt
 
 COPY . /code
