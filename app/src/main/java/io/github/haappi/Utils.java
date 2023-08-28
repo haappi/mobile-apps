@@ -3,12 +3,9 @@ package io.github.haappi;
 import android.content.Context;
 
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URLEncoder;
@@ -25,9 +22,13 @@ public class Utils {
 
     public static CompletableFuture<JSONObject> doApiCall(String url, Context context) {
         CompletableFuture<JSONObject> future = new CompletableFuture<>();
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                future::complete,
-                Throwable::printStackTrace);
+        JsonObjectRequest request =
+                new JsonObjectRequest(
+                        Request.Method.GET,
+                        url,
+                        null,
+                        future::complete,
+                        Throwable::printStackTrace);
 
         Volley.newRequestQueue(context).add(request); // line 4 of AndroidManifest.xml
 
@@ -39,7 +40,10 @@ public class Utils {
         try {
             for (Map.Entry<String, Object> entry : params.entrySet()) {
                 String key = URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8);
-                String value = URLEncoder.encode(sanitizeQueryParam(entry.getValue().toString()), StandardCharsets.UTF_8);
+                String value =
+                        URLEncoder.encode(
+                                sanitizeQueryParam(entry.getValue().toString()),
+                                StandardCharsets.UTF_8);
                 queryString.append(key).append("=").append(value).append("&");
             }
             if (!queryString.toString().isEmpty()) {
@@ -52,6 +56,7 @@ public class Utils {
     }
 
     public static String sanitizeQueryParam(Object value) {
-        return value.toString().replaceAll("[^a-zA-Z0-9-]", ""); // only allow alphanumeric characters and dashes
+        return value.toString()
+                .replaceAll("[^a-zA-Z0-9-]", ""); // only allow alphanumeric characters and dashes
     }
 }
