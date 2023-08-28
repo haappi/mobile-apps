@@ -42,6 +42,27 @@ class InputResponseModel(BaseModel):
     source: str
     source_url: str
 
+def seconds_to_human_readable(seconds):
+  """Converts seconds to human readable format.
+
+  Args:
+    seconds: The number of seconds to convert.
+
+  Returns:
+    A human readable string representation of the number of seconds.
+  """
+
+  # Convert seconds to days, hours, minutes, and seconds.
+  days = seconds // 86400
+  hours = (seconds % 86400) // 3600
+  minutes = (seconds % 3600) // 60
+  seconds = seconds % 60
+
+  # Format the human readable string.
+  return '{days} days, {hours} hours, {minutes} minutes, {seconds} seconds'.format(
+      days=days, hours=hours, minutes=minutes, seconds=seconds)
+
+
 @app.on_event("startup")
 async def startup_event():
     print("Starting up...")
@@ -147,7 +168,7 @@ async def add_question(question: InputResponseModel):
 
 @app.get("/health")
 async def health():
-    return {"status": "OK", "uptime": f"{int(time.time())  - start_time} seconds",
+    return {"status": "OK", "uptime": f"{seconds_to_human_readable(int(time.time())  - start_time)} seconds",
             "OS": f"{platform.system()} - {platform.release()}"}
 
 
