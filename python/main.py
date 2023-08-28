@@ -6,9 +6,12 @@ import signal
 import time
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+import os
 
 app = FastAPI()
 start_time = int(time.time())
+
+db_path = os.environ.get("DB_PATH", "trivia.sqlite")
 
 
 class QuestionResponseModel(BaseModel):
@@ -33,7 +36,7 @@ async def startup_event():
     print(f"OS: {platform.system()} - {platform.release()}")
 
     print("Setting up database...")
-    async with asqlite.connect('trivia.sqlite') as conn:
+    async with asqlite.connect(db_path) as conn:
         async with conn.cursor() as cursor:
             await cursor.execute('''
                 CREATE TABLE IF NOT EXISTS questions (
@@ -59,7 +62,7 @@ async def startup_event():
 @app.get("/get-question")
 async def root(category: str | None = None, difficulty: int | None = None, limit: int | None = 1) -> \
 list[QuestionResponseModel]:
-    async with asqlite.connect('trivia.sqlite') as conn:
+    async with asqlite.connect(db_path) as conn:
         async with conn.cursor() as cursor:
             query = "SELECT * FROM questions WHERE 1=1"  # where just so i can join the and later
 
