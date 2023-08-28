@@ -15,4 +15,4 @@ jobs:
         run: cd ./python
 
       - name: Build Docker image
-        run: docker build -t oldie-app-api:latest .
+        run: docker build -t oldie-app-api:latest -f Dockerfile .
