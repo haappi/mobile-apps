@@ -91,7 +91,7 @@ async def startup_event():
             await conn.commit()
             await cursor.execute('SELECT * FROM questions')
             await cursor.execute('SELECT COUNT(*) FROM questions')
-            print(f"Found {await cursor.fetchone()[0]} questions")
+            print(f"Found {(await cursor.fetchone())[0]} questions")
     print("Database setup complete")
 
 
