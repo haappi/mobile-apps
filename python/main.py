@@ -1,12 +1,11 @@
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-import time
-import platform
 import asqlite
 import json
-import typing
 import os
+import platform
 import signal
+import time
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 
 app = FastAPI()
 start_time = int(time.time())
@@ -26,6 +25,7 @@ class QuestionResponseModel(BaseModel):
     tags: list[str]
     source_title: str
     source_url: str
+
 
 @app.on_event("startup")
 async def startup_event():
@@ -55,55 +55,64 @@ async def startup_event():
             await conn.commit()
     print("Database setup complete")
 
+
 @app.get("/get-question")
-async def root(category: typing.Optional[str] = None, difficulty: typing.Optional[int] = None) -> QuestionResponseModel:
+async def root(category: str | None = None, difficulty: int | None = None, limit: int | None = 1) -> \
+list[QuestionResponseModel]:
     async with asqlite.connect('trivia.sqlite') as conn:
         async with conn.cursor() as cursor:
-            query = "SELECT * FROM questions WHERE 1=1" # where just so i can join the and later
+            query = "SELECT * FROM questions WHERE 1=1"  # where just so i can join the and later
 
             conditions = []
             values = []  # only used so someone can't inject SQL
 
             if category:
                 conditions.append("category = ?")
-                values.append(category)  # prevent SQL injection
+                values.append(str(category))  # prevent SQL injection
             if difficulty:
                 conditions.append("difficulty = ?")
-                values.append(difficulty)
+                values.append(str(difficulty))
 
             if conditions:
                 query += " AND " + " AND ".join(conditions)
-                query += " ORDER BY RANDOM() LIMIT 1"
+                query += f" ORDER BY RANDOM() LIMIT {limit}"
                 await cursor.execute(query, "".join(values))
             else:
-                query += " ORDER BY RANDOM() LIMIT 1"
+                query += f" ORDER BY RANDOM() LIMIT {limit}"
                 await cursor.execute(query)
 
-            question = await cursor.fetchone()
+            questions = await cursor.fetchall()
 
-            if question:
-                dict_o_values = {
-                    "id": question[0],
-                    "question": question[1],
-                    "category": question[2],
-                    "image_type": question[3],
-                    "image_data": question[4],
-                    "answers": json.loads(question[5]),
-                    "correct": question[6],
-                    "explanation": question[7],
-                    "hint": question[8],
-                    "difficulty": question[9],
-                    "tags": json.loads(question[10]),
-                    "source_title": question[11],
-                    "source_url": question[12]
-                }
-                return QuestionResponseModel(**dict_o_values)
+            to_return = []
+
+            for question in questions:
+                if question:
+                    dict_o_values = {
+                        "id": question[0],
+                        "question": question[1],
+                        "category": question[2],
+                        "image_type": question[3],
+                        "image_data": question[4],
+                        "answers": json.loads(question[5]),
+                        "correct": question[6],
+                        "explanation": question[7],
+                        "hint": question[8],
+                        "difficulty": question[9],
+                        "tags": json.loads(question[10]),
+                        "source_title": question[11],
+                        "source_url": question[12]
+                    }
+                    to_return.append(QuestionResponseModel(**dict_o_values))
+            if to_return:
+                return to_return
             raise HTTPException(status_code=404, detail="No questions found")
 
 
 @app.get("/health")
 async def health():
-    return {"status": "OK", "uptime": f"{int(time.time())} seconds" - start_time, "OS": f"{platform.system()} - {platform.release()}"}
+    return {"status": "OK", "uptime": f"{int(time.time())} seconds" - start_time,
+            "OS": f"{platform.system()} - {platform.release()}"}
+
 
 @app.post("/stop")
 async def stop():
