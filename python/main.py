@@ -168,7 +168,7 @@ async def add_question(question: InputResponseModel):
 
 @app.get("/health")
 async def health():
-    return {"status": "OK", "uptime": f"{seconds_to_human_readable(int(time.time())  - start_time)} seconds",
+    return {"status": "OK", "uptime": f"{seconds_to_human_readable(int(time.time())  - start_time)}",
             "OS": f"{platform.system()} - {platform.release()}"}
 
 
