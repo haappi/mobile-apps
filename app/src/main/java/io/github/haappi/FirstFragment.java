@@ -2,6 +2,7 @@ package io.github.haappi;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -41,4 +42,9 @@ public class FirstFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//
+//    }
 }
