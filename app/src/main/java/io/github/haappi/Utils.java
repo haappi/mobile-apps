@@ -9,8 +9,6 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONObject;
 
 import java.io.CharArrayWriter;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.BitSet;
@@ -94,16 +92,16 @@ public class Utils {
         StringBuilder out = new StringBuilder(s.length());
         CharArrayWriter charArrayWriter = new CharArrayWriter();
 
-        for (int i = 0; i < s.length();) {
+        for (int i = 0; i < s.length(); ) {
             int c = (int) s.charAt(i);
-            //System.out.println("Examining character: " + c);
+            // System.out.println("Examining character: " + c);
             if (dontNeedEncoding.get(c)) {
                 if (c == ' ') {
                     c = '+';
                     needToChange = true;
                 }
-                //System.out.println("Storing: " + c);
-                out.append((char)c);
+                // System.out.println("Storing: " + c);
+                out.append((char) c);
                 i++;
             } else {
                 // convert to external encoding before hex conversion
@@ -122,8 +120,8 @@ public class Utils {
                           System.out.println(Integer.toHexString(c)
                           + " is high surrogate");
                         */
-                        if ( (i+1) < s.length()) {
-                            int d = (int) s.charAt(i+1);
+                        if ((i + 1) < s.length()) {
+                            int d = (int) s.charAt(i + 1);
                             /*
                               System.out.println("\tExamining "
                               + Integer.toHexString(d));
@@ -165,6 +163,6 @@ public class Utils {
             }
         }
 
-        return (needToChange? out.toString() : s);
+        return (needToChange ? out.toString() : s);
     }
 }
