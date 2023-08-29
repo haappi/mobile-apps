@@ -4,5 +4,5 @@ id 'com.android.application' version '8.1.0' apply false
 }
 
 ext {
-    sourceCompatibility = JavaVersion.VERSION_11
+    sourceCompatibility = JavaVersion.VERSION_1_8
 }
