@@ -1,0 +1,38 @@
+jobs:
+  generate-diff-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: |
+          # Install pandoc and LaTeX
+          sudo apt-get update
+          sudo apt-get install -y pandoc texlive-xetex
+
+      - name: Generate Diff
+        id: generate-diff
+        run: |
+          # Generate the diff based on previous commit
+          diff=$(git diff HEAD^..HEAD)
+          
+          # Alternatively, generate diff if commit message contains specific keyword
+          if [[ $(git log -1 --pretty=%B) == *"generate-diff"* ]]; then
+            diff=$(git diff HEAD^..HEAD)
+          else
+            diff=""
+          fi
+          echo "::set-output name=diff::$diff"
+
+      - name: Convert Diff to PDF
+        id: diff-to-pdf
+        run: |
+          # Convert diff to PDF using pandoc
+          echo "${{ steps.generate-diff.outputs.diff }}" | pandoc -o diff.pdf
+
+      - name: Upload PDF as Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: diff-pdf
+          path: diff.pdf
