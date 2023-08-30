@@ -1,6 +1,13 @@
+name: Generate Diff
+
+on:
+  push
+
+
 jobs:
   generate-diff-pdf:
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[Diff Skip]')"
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
