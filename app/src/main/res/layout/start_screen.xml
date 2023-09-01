@@ -7,15 +7,23 @@
     android:background="@drawable/purple_gradient"
     tools:context=".StartScreen">
 
-
-    <!--    <com.google.android.material.button.MaterialButton-->
-    <!--        android:id="@+id/play_button"-->
-    <!--        style="@style/Widget.MaterialComponents.Button"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="@string/play_button"-->
-    <!--        tools:layout_editor_absoluteX="161dp"-->
-    <!--        tools:layout_editor_absoluteY="364dp" />-->
+    <RelativeLayout
+        android:id="@+id/rectangularBox"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="105dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="106dp"
+        android:layout_marginBottom="56dp"
+        android:background="@color/cardview_dark_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/play_button">
+        <!-- Your other UI elements here -->
+    </RelativeLayout>
 
     <com.google.android.material.textfield.MaterialAutoCompleteTextView
         android:id="@+id/textView"
@@ -34,9 +42,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:textSize="10sp"
         android:text="@string/copyright"
         android:textColor="#FFFFFF"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
@@ -53,9 +61,9 @@
         android:text="@string/play_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.437"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.466" />
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
