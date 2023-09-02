@@ -1,56 +1,86 @@
 package io.github.haappi;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.ui.AppBarConfiguration;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import io.github.haappi.databinding.ActivityMainBinding;
 
 public class StartScreen extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
     private GestureDetector gestureDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.start_screen);
+    }
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+    public void startGame(View view) {
+        Button playButton = findViewById(R.id.play_button);
+        TextView textView1 = findViewById(R.id.textView);
+        TextView textView2 = findViewById(R.id.textView2);
 
-        setSupportActionBar(binding.toolbar);
+        playButton.setVisibility(View.GONE);
+        textView1.setVisibility(View.GONE);
+        textView2.setVisibility(View.GONE);
 
-        //        NavController navController =
-        //                Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        //        appBarConfiguration = new
-        // AppBarConfiguration.Builder(navController.getGraph()).build();
-        //        NavigationUI.setupActionBarWithNavController(this, navController,
-        // appBarConfiguration);
+        Fragment frag = new GameFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragmentContainer, frag);
+        transaction.commit();
+    }
 
-        binding.fab.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                                .setAnchorView(R.id.fab)
-                                .setAction("Action", null)
-                                .show();
-                    }
-                });
-        //        AppCompatButton playButton = findViewById(R.id.play_button);
-        //        playButton.setOnClickListener(event -> {
-        //            Log.d("button", "play button pressed");
-        //        });
+    public void launchSettings(View view) {
+//    setChildrenVisibility(findViewById(R.id.start_screen), false);
+        Button playButton = findViewById(R.id.play_button);
+        TextView textView1 = findViewById(R.id.textView);
+        TextView textView2 = findViewById(R.id.textView2);
 
+        playButton.setVisibility(View.GONE);
+        textView1.setVisibility(View.GONE);
+        textView2.setVisibility(View.GONE);
+
+
+        Fragment frag = new SettingsFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragmentContainer, frag);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void onBackPressed() {
+        super.onBackPressed();
+        setChildrenVisibility(findViewById(R.id.start_screen), true);
+    }
+
+    public static void setChildrenVisibility(View view, boolean visible) {
+        if (view instanceof ViewGroup) {
+            ViewGroup viewGroup = (ViewGroup) view;
+            int childCount = viewGroup.getChildCount();
+
+            for (int i = 0; i < childCount; i++) {
+                View childView = viewGroup.getChildAt(i);
+                childView.setVisibility(visible ? View.VISIBLE : View.GONE);
+                Log.d("childView", "childView: " + childView.toString() + " visible: " + visible);
+
+                setChildrenVisibility(childView, visible);
+            }
+        }
     }
 
 

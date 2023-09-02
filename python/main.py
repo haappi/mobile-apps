@@ -109,8 +109,7 @@ list[QuestionResponseModel]:
                 conditions.append("category = ?")
                 values.append(str(category))  # prevent SQL injection
             if difficulty:
-                conditions.append("difficulty = ?")
-                values.append(str(difficulty))
+                conditions.append(f"difficulty = {difficulty}")
 
             if conditions:
                 query += " AND " + " AND ".join(conditions)
