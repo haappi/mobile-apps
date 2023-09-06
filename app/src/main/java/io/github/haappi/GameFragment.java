@@ -22,15 +22,15 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameFragment extends Fragment {
 
@@ -44,17 +44,11 @@ public class GameFragment extends Fragment {
     private int difficutly;
     private boolean infiniteMode;
 
-
-    public GameFragment() {
-
-    }
-
+    public GameFragment() {}
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
 
         SharedPreferences preferences = requireActivity().getSharedPreferences(PREFERENCES_NAME, 0);
         int selectedOption1 = preferences.getInt(OPTION1_KEY, 0); // gets option 1, or zero if null
@@ -69,13 +63,14 @@ public class GameFragment extends Fragment {
 
         fetchQuestions();
 
-
         View transparentOverlay = view.findViewById(R.id.transparentOverlay);
-        GestureDetector gestureDetector = new GestureDetector(requireContext(), new GestureHandler());
-        transparentOverlay.setOnTouchListener((v, event) -> {
-//            Log.d("touch", "touch event: " + event.toString());
-            return gestureDetector.onTouchEvent(event);
-        });
+        GestureDetector gestureDetector =
+                new GestureDetector(requireContext(), new GestureHandler());
+        transparentOverlay.setOnTouchListener(
+                (v, event) -> {
+                    //            Log.d("touch", "touch event: " + event.toString());
+                    return gestureDetector.onTouchEvent(event);
+                });
     }
 
     @Override
@@ -95,7 +90,8 @@ public class GameFragment extends Fragment {
 
             if (Math.abs(diffX) > Math.abs(diffY)) {
                 // Horizontal swipe (left or right)
-                if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                if (Math.abs(diffX) > SWIPE_THRESHOLD
+                        && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
                     if (diffX > 0) {
                         // Right swipe
                         handleRightSwipe();
@@ -106,7 +102,8 @@ public class GameFragment extends Fragment {
                 }
             } else {
                 // Vertical swipe (up or down)
-                if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                if (Math.abs(diffY) > SWIPE_THRESHOLD
+                        && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
                     if (diffY > 0) {
                         // Down swipe
                         handleDownSwipe();
@@ -116,7 +113,16 @@ public class GameFragment extends Fragment {
                     }
                 }
             }
-            Log.d("touch", "onFling: " + e1.toString() + " " + e2.toString() + " " + velocityX + " " + velocityY);
+            Log.d(
+                    "touch",
+                    "onFling: "
+                            + e1.toString()
+                            + " "
+                            + e2.toString()
+                            + " "
+                            + velocityX
+                            + " "
+                            + velocityY);
             return true;
         }
     }
@@ -154,51 +160,55 @@ public class GameFragment extends Fragment {
         }
     }
 
-
     private void fetchQuestions() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://chicago.quack.boo/school/oldie/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        Retrofit retrofit =
+                new Retrofit.Builder()
+                        .baseUrl("https://chicago.quack.boo/school/oldie/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
 
         ApiService apiService = retrofit.create(ApiService.class);
 
         // Make the API request
-        Call<List<Question>> call = apiService.getQuestions(infiniteMode ? "100": "10", difficutly, type);
-        call.enqueue(new Callback<>() {
-            @Override
-            public void onResponse(Call<List<Question>> call, Response<List<Question>> response) {
-                if (response.isSuccessful()) {
-                    List<Question> questions = response.body();
+        Call<List<Question>> call =
+                apiService.getQuestions(infiniteMode ? "100" : "10", difficutly, type);
+        call.enqueue(
+                new Callback<>() {
+                    @Override
+                    public void onResponse(
+                            Call<List<Question>> call, Response<List<Question>> response) {
+                        if (response.isSuccessful()) {
+                            List<Question> questions = response.body();
 
-                    if (questions != null && !questions.isEmpty()) {
-                        questionMapping.addAll(questions);
-                        Log.d("questions", "onResponse: " + questions.toString());
-                        displayQuestion(0);
+                            if (questions != null && !questions.isEmpty()) {
+                                questionMapping.addAll(questions);
+                                Log.d("questions", "onResponse: " + questions.toString());
+                                displayQuestion(0);
+                            }
+                        } else {
+                            try {
+                                Log.e(
+                                        "questions",
+                                        "would you look at that it broke: "
+                                                + response.errorBody().string());
+                                showSnack("API request failed: " + response.errorBody().string());
+                                Log.e("url", call.request().url().toString());
+
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
                     }
-                } else {
-                    try {
-                        Log.e("questions", "would you look at that it broke: " + response.errorBody().string());
-showSnack("API request failed: " + response.errorBody().string());
-                        Log.e("url", call.request().url().toString());
 
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                    @Override
+                    public void onFailure(Call<List<Question>> call, Throwable t) {
+                        // Handle API request failure
                     }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Question>> call, Throwable t) {
-                // Handle API request failure
-            }
-        });
+                });
     }
 
     private void showSnack(String message) {
         Snackbar snackbar = Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG);
         snackbar.show();
-
     }
-
 }
