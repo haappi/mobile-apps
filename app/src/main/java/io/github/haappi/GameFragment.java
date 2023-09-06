@@ -72,6 +72,9 @@ public class GameFragment extends Fragment {
         String[] option2Values = getResources().getStringArray(R.array.option2_array);
 
         type = option1Values[selectedOption1];
+        if (type.equals("misc")) {
+            type = null;
+        }
         difficutly = selectedOption2;
 
         fetchQuestions();
@@ -225,7 +228,12 @@ public class GameFragment extends Fragment {
         ApiService apiService = retrofit.create(ApiService.class);
 
         // Make the API request
-        Call<List<Question>> call = apiService.getQuestions(infiniteMode ? "100" : "10", type);
+        Call<List<Question>> call;
+        if (type == null) {
+             call = apiService.getQuestions(infiniteMode ? "100" : "10");
+        } else {
+             call = apiService.getQuestions(infiniteMode ? "100" : "10", type);
+        }
         call.enqueue(
                 new Callback<>() {
                     @Override
