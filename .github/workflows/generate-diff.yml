@@ -16,7 +16,7 @@ jobs:
         run: |
           # Install pandoc and LaTeX
           sudo apt-get update
-          sudo apt-get install -y pandoc texlive-xetex git
+          sudo apt-get install -y pandoc texlive-xetex git glibc-source apt-utils
 
       - name: Generate Diff
         id: generate-diff
