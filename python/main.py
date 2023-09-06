@@ -114,6 +114,8 @@ list[QuestionResponseModel]:
             if conditions:
                 query += " AND " + " AND ".join(conditions)
                 query += f" ORDER BY RANDOM() LIMIT {limit}"
+                print(query)
+                print(values)
                 await cursor.execute(query, "".join(values))
             else:
                 query += f" ORDER BY RANDOM() LIMIT {limit}"
