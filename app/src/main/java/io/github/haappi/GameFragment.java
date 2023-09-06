@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.AnimatorRes;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
@@ -91,8 +90,7 @@ public class GameFragment extends Fragment {
         ans4 = view.findViewById(R.id.answer4TextView);
         ans4.setOnClickListener((view1) -> checkAnswer(3));
 
-        answers = new TextView[]{ans1, ans2, ans3, ans4};
-
+        answers = new TextView[] {ans1, ans2, ans3, ans4};
     }
 
     @Override
@@ -191,7 +189,6 @@ public class GameFragment extends Fragment {
         }
     }
 
-
     private void fetchQuestions() {
         Retrofit retrofit =
                 new Retrofit.Builder()
@@ -202,8 +199,7 @@ public class GameFragment extends Fragment {
         ApiService apiService = retrofit.create(ApiService.class);
 
         // Make the API request
-        Call<List<Question>> call =
-                apiService.getQuestions(infiniteMode ? "100" : "10", type);
+        Call<List<Question>> call = apiService.getQuestions(infiniteMode ? "100" : "10", type);
         call.enqueue(
                 new Callback<>() {
                     @Override
@@ -234,10 +230,7 @@ public class GameFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<List<Question>> call, Throwable t) {
-                        Log.e(
-                                "questions",
-                                "would you look at that it broke: "
-                                        + t.toString());
+                        Log.e("questions", "would you look at that it broke: " + t.toString());
                         showSnack("API request failed: " + t.toString());
                         Log.e("url", call.request().url().toString());
                     }
@@ -249,25 +242,19 @@ public class GameFragment extends Fragment {
         snackbar.show();
     }
 
-    public void optionOneClicked(View view) {
+    public void optionOneClicked(View view) {}
 
-    }
+    public void optionTwoClicked(View view) {}
 
-    public void optionTwoClicked(View view) {
+    public void optionThreeClicked(View view) {}
 
-    }
-
-    public void optionThreeClicked(View view) {
-
-    }
-
-    public void optionFourClicked(View view) {
-
-    }
+    public void optionFourClicked(View view) {}
 
     private void checkAnswer(int selectedOptionIndex) {
         Log.d("a", "selected: " + selectedOptionIndex);
-        if (questionMapping != null && selectedOptionIndex >= 0 && selectedOptionIndex < questionMapping.size()) {
+        if (questionMapping != null
+                && selectedOptionIndex >= 0
+                && selectedOptionIndex < questionMapping.size()) {
             Question question = (Question) questionMapping.get(questionIndex);
             Log.d("a", question.getQuestion());
 
@@ -276,7 +263,9 @@ public class GameFragment extends Fragment {
                 showSnack("Correct!");
             } else {
                 // Incorrect answer
-                showSnack("Incorrect. The correct answer is: " + question.getAnswers()[question.getCorrect()]);
+                showSnack(
+                        "Incorrect. The correct answer is: "
+                                + question.getAnswers()[question.getCorrect()]);
             }
 
             // Load the next question
@@ -284,5 +273,4 @@ public class GameFragment extends Fragment {
             displayQuestion(questionIndex);
         }
     }
-
 }
