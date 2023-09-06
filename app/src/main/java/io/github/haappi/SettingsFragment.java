@@ -1,7 +1,7 @@
 package io.github.haappi;
 
-import static io.github.haappi.StartScreen.setChildrenVisibility;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
-import android.content.SharedPreferences;
 
 public class SettingsFragment extends Fragment {
 
@@ -28,18 +28,29 @@ public class SettingsFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(
+            @NonNull LayoutInflater inflater,
+            @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.settings_fragment, container, false);
 
-//        setChildrenVisibility(view, true);
+        //        setChildrenVisibility(view, true);
 
         spinnerOption1 = view.findViewById(R.id.spinnerOption1);
         spinnerOption2 = view.findViewById(R.id.spinnerOption2);
         infiniteModeSwitch = view.findViewById(R.id.switch1);
 
         // how do i make a dropdown in android studio and add options from my strings.xml
-        ArrayAdapter<CharSequence> option1Adapter = ArrayAdapter.createFromResource(requireContext(), R.array.option1_array, android.R.layout.simple_spinner_item);
-        ArrayAdapter<CharSequence> option2Adapter = ArrayAdapter.createFromResource(requireContext(), R.array.option2_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> option1Adapter =
+                ArrayAdapter.createFromResource(
+                        requireContext(),
+                        R.array.option1_array,
+                        android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> option2Adapter =
+                ArrayAdapter.createFromResource(
+                        requireContext(),
+                        R.array.option2_array,
+                        android.R.layout.simple_spinner_item);
 
         option1Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         option2Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -56,39 +67,46 @@ public class SettingsFragment extends Fragment {
         spinnerOption2.setSelection(selectedOption2);
         infiniteModeSwitch.setChecked(infiniteMode);
 
-        spinnerOption1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putInt(OPTION1_KEY, position);
-                editor.apply();
-            }
+        spinnerOption1.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(
+                            AdapterView<?> parentView,
+                            View selectedItemView,
+                            int position,
+                            long id) {
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putInt(OPTION1_KEY, position);
+                        editor.apply();
+                    }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parentView) {}
+                });
 
-            }
-        });
+        spinnerOption2.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(
+                            AdapterView<?> parentView,
+                            View selectedItemView,
+                            int position,
+                            long id) {
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putInt(OPTION2_KEY, position);
+                        editor.apply();
+                    }
 
-        spinnerOption2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putInt(OPTION2_KEY, position);
-                editor.apply();
-            }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parentView) {}
+                });
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-
-            }
-        });
-
-        infiniteModeSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean(INFINITE_MODE_KEY, isChecked);
-            editor.apply();
-        });
+        infiniteModeSwitch.setOnCheckedChangeListener(
+                (buttonView, isChecked) -> {
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean(INFINITE_MODE_KEY, isChecked);
+                    editor.apply();
+                });
 
         return view;
     }

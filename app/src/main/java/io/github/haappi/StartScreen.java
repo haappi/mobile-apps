@@ -3,21 +3,15 @@ package io.github.haappi;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.ui.AppBarConfiguration;
-
-import com.google.android.material.snackbar.Snackbar;
-
 
 public class StartScreen extends AppCompatActivity {
 
@@ -46,7 +40,7 @@ public class StartScreen extends AppCompatActivity {
     }
 
     public void launchSettings(View view) {
-//    setChildrenVisibility(findViewById(R.id.start_screen), false);
+        //    setChildrenVisibility(findViewById(R.id.start_screen), false);
         Button playButton = findViewById(R.id.play_button);
         TextView textView1 = findViewById(R.id.textView);
         TextView textView2 = findViewById(R.id.textView2);
@@ -54,7 +48,6 @@ public class StartScreen extends AppCompatActivity {
         playButton.setVisibility(View.GONE);
         textView1.setVisibility(View.GONE);
         textView2.setVisibility(View.GONE);
-
 
         Fragment frag = new SettingsFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -82,6 +75,4 @@ public class StartScreen extends AppCompatActivity {
             }
         }
     }
-
-
 }

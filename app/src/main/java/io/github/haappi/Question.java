@@ -42,7 +42,6 @@ public class Question {
     @SerializedName("source_url")
     private String sourceUrl;
 
-
     public int getId() {
         return id;
     }

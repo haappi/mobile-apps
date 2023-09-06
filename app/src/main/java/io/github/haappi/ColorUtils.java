@@ -14,8 +14,9 @@ public class ColorUtils {
         double backgroundLuminance = calculateLuminance(backgroundColor);
 
         // Calculate the contrast ratio
-        double contrastRatio = (Math.max(foregroundLuminance, backgroundLuminance) + 0.05)
-                / (Math.min(foregroundLuminance, backgroundLuminance) + 0.05);
+        double contrastRatio =
+                (Math.max(foregroundLuminance, backgroundLuminance) + 0.05)
+                        / (Math.min(foregroundLuminance, backgroundLuminance) + 0.05);
 
         return contrastRatio;
     }
