@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.AnimatorRes;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
@@ -36,13 +37,20 @@ public class GameFragment extends Fragment {
 
     private ImageView backgroundImage;
     private TextView questionTextView;
+    private TextView ans1;
+    private TextView ans2;
+    private TextView ans3;
+    private TextView ans4;
+
     private TextView[] answers;
-    private ArrayList<Object> questionMapping;
+
+    private ArrayList<Question> questionMapping = new ArrayList<>();
     private GestureDetector gestureDetector;
 
     private String type;
     private int difficutly;
     private boolean infiniteMode;
+    private int questionIndex;
 
     public GameFragment() {}
 
@@ -71,6 +79,20 @@ public class GameFragment extends Fragment {
                     //            Log.d("touch", "touch event: " + event.toString());
                     return gestureDetector.onTouchEvent(event);
                 });
+
+        questionTextView = view.findViewById(R.id.questionTextView);
+
+        ans1 = view.findViewById(R.id.answer1TextView);
+        ans1.setOnClickListener((view1) -> checkAnswer(0));
+        ans2 = view.findViewById(R.id.answer2TextView);
+        ans2.setOnClickListener((view1) -> checkAnswer(1));
+        ans3 = view.findViewById(R.id.answer3TextView);
+        ans3.setOnClickListener((view1) -> checkAnswer(2));
+        ans4 = view.findViewById(R.id.answer4TextView);
+        ans4.setOnClickListener((view1) -> checkAnswer(3));
+
+        answers = new TextView[]{ans1, ans2, ans3, ans4};
+
     }
 
     @Override
@@ -157,8 +179,18 @@ public class GameFragment extends Fragment {
         if (questionIndex >= 0 && questionIndex < questionMapping.size()) {
             Question question = (Question) questionMapping.get(questionIndex);
             questionTextView.setText(question.getQuestion());
+
+            for (int i = 0; i < answers.length; i++) {
+                if (i < question.getAnswers().length) {
+                    answers[i].setVisibility(View.VISIBLE);
+                    answers[i].setText(question.getAnswers()[i]);
+                } else {
+                    answers[i].setVisibility(View.GONE);
+                }
+            }
         }
     }
+
 
     private void fetchQuestions() {
         Retrofit retrofit =
@@ -171,7 +203,7 @@ public class GameFragment extends Fragment {
 
         // Make the API request
         Call<List<Question>> call =
-                apiService.getQuestions(infiniteMode ? "100" : "10", difficutly, type);
+                apiService.getQuestions(infiniteMode ? "100" : "10", type);
         call.enqueue(
                 new Callback<>() {
                     @Override
@@ -202,7 +234,12 @@ public class GameFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<List<Question>> call, Throwable t) {
-                        // Handle API request failure
+                        Log.e(
+                                "questions",
+                                "would you look at that it broke: "
+                                        + t.toString());
+                        showSnack("API request failed: " + t.toString());
+                        Log.e("url", call.request().url().toString());
                     }
                 });
     }
@@ -211,4 +248,41 @@ public class GameFragment extends Fragment {
         Snackbar snackbar = Snackbar.make(requireView(), message, Snackbar.LENGTH_LONG);
         snackbar.show();
     }
+
+    public void optionOneClicked(View view) {
+
+    }
+
+    public void optionTwoClicked(View view) {
+
+    }
+
+    public void optionThreeClicked(View view) {
+
+    }
+
+    public void optionFourClicked(View view) {
+
+    }
+
+    private void checkAnswer(int selectedOptionIndex) {
+        Log.d("a", "selected: " + selectedOptionIndex);
+        if (questionMapping != null && selectedOptionIndex >= 0 && selectedOptionIndex < questionMapping.size()) {
+            Question question = (Question) questionMapping.get(questionIndex);
+            Log.d("a", question.getQuestion());
+
+            if (question != null && selectedOptionIndex == question.getCorrect()) {
+                // Correct answer
+                showSnack("Correct!");
+            } else {
+                // Incorrect answer
+                showSnack("Incorrect. The correct answer is: " + question.getAnswers()[question.getCorrect()]);
+            }
+
+            // Load the next question
+            questionIndex++;
+            displayQuestion(questionIndex);
+        }
+    }
+
 }

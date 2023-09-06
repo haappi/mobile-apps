@@ -48,7 +48,7 @@
 
     <string-array name="option1_array">
         <item>games</item>
-        <item>novies</item>
+        <item>movies</item>
         <item>history</item>
         <item>misc</item>
     </string-array>
