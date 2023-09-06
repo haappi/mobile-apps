@@ -200,7 +200,7 @@ public class GameFragment extends Fragment {
         if (questionIndex >= 0 && questionIndex < questionMapping.size()) {
             Question question = (Question) questionMapping.get(questionIndex);
             questionTextView.setText(question.getQuestion());
-            setBackground(question.getSourceUrl());
+            setBackground(question.getImageData());
 
             for (int i = 0; i < answers.length; i++) {
                 if (i < question.getAnswers().length) {
@@ -339,14 +339,15 @@ public class GameFragment extends Fragment {
         if (url.isEmpty()) {
             return;
         }
+        Log.d("url-43284378", url);
         RequestOptions requestOptions = new RequestOptions().error(R.drawable.purple_gradient);
 
-        ImageView bg = questionTextView.findViewById(R.id.backgroundImageView);
+        ImageView bg = questionTextView.getRootView().findViewById(R.id.backgroundImageView);
 
         Glide.with(this)
                 .load(url)
                 .apply(requestOptions)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(bg);
+                .transition(DrawableTransitionOptions.withCrossFade()).into(bg);
+//                .into(bg);
     }
 }

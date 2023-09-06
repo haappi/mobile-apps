@@ -25,6 +25,7 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@drawable/default_background_image"
+            android:background="@color/cardview_dark_background"
         />
         <TextView
             android:id="@+id/questionTextView"
