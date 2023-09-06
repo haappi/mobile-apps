@@ -14,7 +14,5 @@ public interface ApiService {
             @Query("category") String param3);
 
     @GET("question")
-    Call<List<Question>> getQuestions(
-            @Query("limit") String param1
-    );
+    Call<List<Question>> getQuestions(@Query("limit") String param1);
 }

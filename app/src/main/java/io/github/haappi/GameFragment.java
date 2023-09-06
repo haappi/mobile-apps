@@ -230,9 +230,9 @@ public class GameFragment extends Fragment {
         // Make the API request
         Call<List<Question>> call;
         if (type == null) {
-             call = apiService.getQuestions(infiniteMode ? "100" : "10");
+            call = apiService.getQuestions(infiniteMode ? "100" : "10");
         } else {
-             call = apiService.getQuestions(infiniteMode ? "100" : "10", type);
+            call = apiService.getQuestions(infiniteMode ? "100" : "10", type);
         }
         call.enqueue(
                 new Callback<>() {
@@ -347,7 +347,8 @@ public class GameFragment extends Fragment {
         Glide.with(this)
                 .load(url)
                 .apply(requestOptions)
-                .transition(DrawableTransitionOptions.withCrossFade()).into(bg);
-//                .into(bg);
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(bg);
+        //                .into(bg);
     }
 }
