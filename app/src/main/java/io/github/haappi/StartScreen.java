@@ -13,7 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.ui.AppBarConfiguration;
 
-public class StartScreen extends AppCompatActivity {
+import com.google.android.material.snackbar.Snackbar;
+
+public class StartScreen extends AppCompatActivity implements DataPasser {
 
     private AppBarConfiguration appBarConfiguration;
     private GestureDetector gestureDetector;
@@ -74,5 +76,11 @@ public class StartScreen extends AppCompatActivity {
                 setChildrenVisibility(childView, visible);
             }
         }
+    }
+
+    @Override
+    public void onPass(String reason) {
+        Snackbar.make(findViewById(R.id.start_screen), reason, Snackbar.LENGTH_LONG).show();
+        Log.d("passer", reason);
     }
 }

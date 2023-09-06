@@ -5,7 +5,10 @@ import static io.github.haappi.SettingsFragment.OPTION1_KEY;
 import static io.github.haappi.SettingsFragment.OPTION2_KEY;
 import static io.github.haappi.SettingsFragment.PREFERENCES_NAME;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -18,8 +21,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.snackbar.Snackbar;
 
 import retrofit2.Call;
@@ -42,6 +49,7 @@ public class GameFragment extends Fragment {
     private TextView ans4;
 
     private TextView[] answers;
+    private DataPasser passer;
 
     private ArrayList<Question> questionMapping = new ArrayList<>();
     private GestureDetector gestureDetector;
@@ -82,13 +90,22 @@ public class GameFragment extends Fragment {
         questionTextView = view.findViewById(R.id.questionTextView);
 
         ans1 = view.findViewById(R.id.answer1TextView);
-        ans1.setOnClickListener((view1) -> checkAnswer(0));
+        ans1.setOnClickListener((view1) -> {
+//            view1.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gradient_pressed_button_background, null));
+            checkAnswer(0);
+        });
         ans2 = view.findViewById(R.id.answer2TextView);
-        ans2.setOnClickListener((view1) -> checkAnswer(1));
+        ans2.setOnClickListener((view1) -> {
+            checkAnswer(1);
+        });
         ans3 = view.findViewById(R.id.answer3TextView);
-        ans3.setOnClickListener((view1) -> checkAnswer(2));
+        ans3.setOnClickListener((view1) -> {
+            checkAnswer(2);
+        });
         ans4 = view.findViewById(R.id.answer4TextView);
-        ans4.setOnClickListener((view1) -> checkAnswer(3));
+        ans4.setOnClickListener((view1) -> {
+            checkAnswer(3);
+        });
 
         answers = new TextView[] {ans1, ans2, ans3, ans4};
     }
@@ -177,6 +194,7 @@ public class GameFragment extends Fragment {
         if (questionIndex >= 0 && questionIndex < questionMapping.size()) {
             Question question = (Question) questionMapping.get(questionIndex);
             questionTextView.setText(question.getQuestion());
+            setBackground(question.getSourceUrl());
 
             for (int i = 0; i < answers.length; i++) {
                 if (i < question.getAnswers().length) {
@@ -186,6 +204,11 @@ public class GameFragment extends Fragment {
                     answers[i].setVisibility(View.GONE);
                 }
             }
+        } else {
+            Intent menu = new Intent(requireContext(), StartScreen.class);
+            startActivity(menu);
+            requireActivity().finish();
+            passer.onPass("Ran out of questions!");
         }
     }
 
@@ -256,21 +279,56 @@ public class GameFragment extends Fragment {
                 && selectedOptionIndex >= 0
                 && selectedOptionIndex < questionMapping.size()) {
             Question question = (Question) questionMapping.get(questionIndex);
+            if (question == null) {
+                Log.e("questionChecker", "somehow we're null");
+                return;
+            }
             Log.d("a", question.getQuestion());
 
-            if (question != null && selectedOptionIndex == question.getCorrect()) {
-                // Correct answer
+            if (selectedOptionIndex == question.getCorrect()) {
                 showSnack("Correct!");
+
+                SharedPreferences preferences = getActivity().getSharedPreferences(PREFERENCES_NAME, 0);
+                SharedPreferences.Editor editor = getActivity().getSharedPreferences(PREFERENCES_NAME, 0).edit();
+                editor.putInt("rightAnswers", preferences.getInt("rightAnswers", 0) + 1);
+                editor.putInt("allTimeQuestionsAsked", preferences.getInt("allTimeQuestionsAsked", 0) + 1);
+                editor.apply();
             } else {
-                // Incorrect answer
                 showSnack(
                         "Incorrect. The correct answer is: "
                                 + question.getAnswers()[question.getCorrect()]);
+
+                SharedPreferences preferences = getActivity().getSharedPreferences(PREFERENCES_NAME, 0);
+                SharedPreferences.Editor editor = getActivity().getSharedPreferences(PREFERENCES_NAME, 0).edit();
+                editor.putInt("incorrectAnswers", preferences.getInt("incorrectAnswers", 0) + 1);
+                editor.putInt("allTimeQuestionsAsked", preferences.getInt("allTimeQuestionsAsked", 0) + 1);
+                editor.apply();
             }
 
             // Load the next question
             questionIndex++;
             displayQuestion(questionIndex);
         }
+    }
+
+    public void onAttach(Context ctx) {
+        super.onAttach(ctx);
+        passer = (DataPasser) ctx;
+    }
+
+    private void setBackground(String url) {
+        if (url.isEmpty()) {
+            return;
+        }
+        RequestOptions requestOptions = new RequestOptions()
+                .error(R.drawable.purple_gradient);
+
+        ImageView bg = questionTextView.findViewById(R.id.backgroundImageView);
+
+        Glide.with(this)
+                .load(url)
+                .apply(requestOptions)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(bg);
     }
 }
