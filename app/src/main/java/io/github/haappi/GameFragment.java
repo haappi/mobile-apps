@@ -8,7 +8,6 @@ import static io.github.haappi.SettingsFragment.PREFERENCES_NAME;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -21,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
@@ -90,22 +88,27 @@ public class GameFragment extends Fragment {
         questionTextView = view.findViewById(R.id.questionTextView);
 
         ans1 = view.findViewById(R.id.answer1TextView);
-        ans1.setOnClickListener((view1) -> {
-//            view1.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.gradient_pressed_button_background, null));
-            checkAnswer(0);
-        });
+        ans1.setOnClickListener(
+                (view1) -> {
+                    //            view1.setBackground(ResourcesCompat.getDrawable(getResources(),
+                    // R.drawable.gradient_pressed_button_background, null));
+                    checkAnswer(0);
+                });
         ans2 = view.findViewById(R.id.answer2TextView);
-        ans2.setOnClickListener((view1) -> {
-            checkAnswer(1);
-        });
+        ans2.setOnClickListener(
+                (view1) -> {
+                    checkAnswer(1);
+                });
         ans3 = view.findViewById(R.id.answer3TextView);
-        ans3.setOnClickListener((view1) -> {
-            checkAnswer(2);
-        });
+        ans3.setOnClickListener(
+                (view1) -> {
+                    checkAnswer(2);
+                });
         ans4 = view.findViewById(R.id.answer4TextView);
-        ans4.setOnClickListener((view1) -> {
-            checkAnswer(3);
-        });
+        ans4.setOnClickListener(
+                (view1) -> {
+                    checkAnswer(3);
+                });
 
         answers = new TextView[] {ans1, ans2, ans3, ans4};
     }
@@ -288,20 +291,28 @@ public class GameFragment extends Fragment {
             if (selectedOptionIndex == question.getCorrect()) {
                 showSnack("Correct!");
 
-                SharedPreferences preferences = getActivity().getSharedPreferences(PREFERENCES_NAME, 0);
-                SharedPreferences.Editor editor = getActivity().getSharedPreferences(PREFERENCES_NAME, 0).edit();
+                SharedPreferences preferences =
+                        getActivity().getSharedPreferences(PREFERENCES_NAME, 0);
+                SharedPreferences.Editor editor =
+                        getActivity().getSharedPreferences(PREFERENCES_NAME, 0).edit();
                 editor.putInt("rightAnswers", preferences.getInt("rightAnswers", 0) + 1);
-                editor.putInt("allTimeQuestionsAsked", preferences.getInt("allTimeQuestionsAsked", 0) + 1);
+                editor.putInt(
+                        "allTimeQuestionsAsked",
+                        preferences.getInt("allTimeQuestionsAsked", 0) + 1);
                 editor.apply();
             } else {
                 showSnack(
                         "Incorrect. The correct answer is: "
                                 + question.getAnswers()[question.getCorrect()]);
 
-                SharedPreferences preferences = getActivity().getSharedPreferences(PREFERENCES_NAME, 0);
-                SharedPreferences.Editor editor = getActivity().getSharedPreferences(PREFERENCES_NAME, 0).edit();
+                SharedPreferences preferences =
+                        getActivity().getSharedPreferences(PREFERENCES_NAME, 0);
+                SharedPreferences.Editor editor =
+                        getActivity().getSharedPreferences(PREFERENCES_NAME, 0).edit();
                 editor.putInt("incorrectAnswers", preferences.getInt("incorrectAnswers", 0) + 1);
-                editor.putInt("allTimeQuestionsAsked", preferences.getInt("allTimeQuestionsAsked", 0) + 1);
+                editor.putInt(
+                        "allTimeQuestionsAsked",
+                        preferences.getInt("allTimeQuestionsAsked", 0) + 1);
                 editor.apply();
             }
 
@@ -320,8 +331,7 @@ public class GameFragment extends Fragment {
         if (url.isEmpty()) {
             return;
         }
-        RequestOptions requestOptions = new RequestOptions()
-                .error(R.drawable.purple_gradient);
+        RequestOptions requestOptions = new RequestOptions().error(R.drawable.purple_gradient);
 
         ImageView bg = questionTextView.findViewById(R.id.backgroundImageView);
 
