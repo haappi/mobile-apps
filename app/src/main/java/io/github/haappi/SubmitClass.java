@@ -6,8 +6,7 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class SubmitClass {
-    @PrimaryKey
-    public int uid;
+    @PrimaryKey public int uid;
 
     @ColumnInfo(name = "first_name")
     public String firstName;
@@ -15,8 +14,7 @@ public class SubmitClass {
     @ColumnInfo(name = "content_saved")
     public String contentToStore;
 
-    @ColumnInfo
-    public long timestamp;
+    @ColumnInfo public long timestamp;
 
     public String toString() {
         return String.format("(%s) %s %s %s", uid, firstName, contentToStore, timestamp);
