@@ -216,4 +216,31 @@ public class DBHandler extends SQLiteOpenHelper {
 
         return classObject;
     }
+
+
+    @SuppressLint("Range")
+    public List<Student> getAllStudents() {
+        List<Student> studentList = new ArrayList<>();
+
+        SQLiteDatabase database = this.getReadableDatabase();
+        String[] columns = {COLUMN_STUDENT_ID, COLUMN_STUDENT_NAME};
+
+        Cursor cursor = database.query(TABLE_STUDENT, columns, null, null, null, null, null);
+
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                long studentId = cursor.getLong(cursor.getColumnIndex(COLUMN_STUDENT_ID));
+                String studentName = cursor.getString(cursor.getColumnIndex(COLUMN_STUDENT_NAME));
+
+                Student student = new Student();
+                student.setStudentId(studentId);
+                student.setStudentName(studentName);
+
+                studentList.add(student);
+            }
+            cursor.close();
+        }
+
+        return studentList;
+    }
 }

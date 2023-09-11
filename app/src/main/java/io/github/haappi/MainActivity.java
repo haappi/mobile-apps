@@ -3,6 +3,7 @@ package io.github.haappi;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -69,7 +70,10 @@ public class MainActivity extends AppCompatActivity {
 
         viewSavedButton.setOnClickListener(
                 view -> {
-                    System.out.println(DBHandler.getInstance().getStudentWithEnrolledClasses(0));
+                    Log.d("student 0", DBHandler.getInstance().getStudentWithEnrolledClasses(0).toString());
+//                    Log.d("all students", DBHandler.getInstance().getAllStudents().stream().collect(ArrayList::new), (list, entry) -> list.add(entry.toString)),
+//
+//                            ArrayList::addAll;);
 //                    ArrayList<SubmitClass> all = DBHandler.getInstance().getAll();
 //
 //                    ArrayList<String> entries =
