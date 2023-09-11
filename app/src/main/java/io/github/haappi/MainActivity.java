@@ -1,46 +1,55 @@
 package io.github.haappi;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.ui.AppBarConfiguration;
-
-import io.github.haappi.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
+    private EditText nameInput, saveTextInput;
+    private Button submitButton, viewSavedButton;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-    }
+        nameInput = findViewById(R.id.nameInput);
+        saveTextInput = findViewById(R.id.saveText);
+        submitButton = findViewById(R.id.submitButton);
+        viewSavedButton = findViewById(R.id.viewSaved);
+        textView = findViewById(R.id.textView);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+        submitButton.setOnClickListener(view -> {
+            String firstName = nameInput.getText().toString();
+            String contentToStore = saveTextInput.getText().toString();
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+            Toast.makeText(MainActivity.this, "Submitted: " + firstName + " - " + contentToStore, Toast.LENGTH_SHORT).show();
+        });
 
-        return super.onOptionsItemSelected(item);
+        viewSavedButton.setOnClickListener(view -> {
+            new Thread() {
+                @Override
+                public void run() {
+
+                    SubmitDao submitDao = AppDatabase.getInstance(MainActivity.this).classDao();
+                    SubmitClass[] submitEntries = submitDao.getAll();
+
+                    StringBuilder stringBuilder = new StringBuilder();
+                    for (SubmitClass entry : submitEntries) {
+                        stringBuilder.append(entry.toString()).append("\n");
+                    }
+
+                    textView.setText(stringBuilder.toString());
+                }
+            }.start();
+        });
+
     }
 }
