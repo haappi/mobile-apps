@@ -1,6 +1,5 @@
 package io.github.haappi;
 
-
 public class SubmitClass {
     private final String firstName;
     private final String contentToStore;

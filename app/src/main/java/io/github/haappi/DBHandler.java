@@ -5,14 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteStatement;
 
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 public class DBHandler extends SQLiteOpenHelper {
-    private final static String DATABASE_NAME = "mydb";
-    private final static int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "mydb";
+    private static final int DATABASE_VERSION = 1;
     private final String TABLE_NAME = "mytable";
     private final String COLUMN_NAME = "name";
     private final String COLUMN_CONTENT = "content";
@@ -40,7 +38,10 @@ public class DBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database) {
-        String createTable = String.format("CREATE TABLE %s (%s TEXT, %s TEXT, %s INTEGER) ", TABLE_NAME, COLUMN_NAME, COLUMN_CONTENT, COLUMN_TIMESTAMP);
+        String createTable =
+                String.format(
+                        "CREATE TABLE %s (%s TEXT, %s TEXT, %s INTEGER) ",
+                        TABLE_NAME, COLUMN_NAME, COLUMN_CONTENT, COLUMN_TIMESTAMP);
         database.execSQL(createTable);
     }
 
