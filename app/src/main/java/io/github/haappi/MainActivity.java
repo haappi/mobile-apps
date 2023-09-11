@@ -59,9 +59,9 @@ public class MainActivity extends AppCompatActivity {
                                 database.insert(DBHandler.TABLE_STUDENT_CLASSES, null, enrollment2);
 
                                 ContentValues enrollment3 = new ContentValues();
-                                enrollment2.put(DBHandler.COLUMN_STUDENT_ID, student2.getStudentId());
-                                enrollment2.put(DBHandler.COLUMN_CLASS_ID, class2.getClassId());
-                                database.insert(DBHandler.TABLE_STUDENT_CLASSES, null, enrollment2);
+                                enrollment3.put(DBHandler.COLUMN_STUDENT_ID, student2.getStudentId());
+                                enrollment3.put(DBHandler.COLUMN_CLASS_ID, class2.getClassId());
+                                database.insert(DBHandler.TABLE_STUDENT_CLASSES, null, enrollment3);
 
                                 Toast.makeText(MainActivity.this, student1.toString(), Toast.LENGTH_LONG).show();
                             });
