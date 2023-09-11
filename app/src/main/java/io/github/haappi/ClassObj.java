@@ -7,8 +7,7 @@ public class ClassObj {
     private String className;
     private List<Long> enrolledStudentIds;
 
-    public ClassObj() {
-    }
+    public ClassObj() {}
 
     public ClassObj(String className) {
         this.className = className;
