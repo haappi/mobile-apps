@@ -1,5 +1,7 @@
 package io.github.haappi;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -38,33 +40,51 @@ public class MainActivity extends AppCompatActivity {
 
                     CompletableFuture.runAsync(
                             () -> {
-                                SubmitClass entry = new SubmitClass(firstName, contentToStore);
-                                DBHandler.getInstance().add(entry);
-                                Toast.makeText(
-                                                MainActivity.this,
-                                                "Saved: " + entry,
-                                                Toast.LENGTH_SHORT)
-                                        .show();
+                                SQLiteDatabase database = DBHandler.getInstance().getWritableDatabase();
+
+                                Student student1 = new Student("Student1 Name");
+                                Student student2 = new Student("Student2 Name");
+
+                                ClassObj class1 = new ClassObj("Class1 Name");
+                                ClassObj class2 = new ClassObj("Class2 Name");
+
+                                ContentValues enrollment1 = new ContentValues();
+                                enrollment1.put(DBHandler.COLUMN_STUDENT_ID, student1.getStudentId());
+                                enrollment1.put(DBHandler.COLUMN_CLASS_ID, class1.getClassId());
+                                database.insert(DBHandler.TABLE_STUDENT_CLASSES, null, enrollment1);
+
+                                ContentValues enrollment2 = new ContentValues();
+                                enrollment2.put(DBHandler.COLUMN_STUDENT_ID, student2.getStudentId());
+                                enrollment2.put(DBHandler.COLUMN_CLASS_ID, class1.getClassId());
+                                database.insert(DBHandler.TABLE_STUDENT_CLASSES, null, enrollment2);
+
+                                ContentValues enrollment3 = new ContentValues();
+                                enrollment2.put(DBHandler.COLUMN_STUDENT_ID, student2.getStudentId());
+                                enrollment2.put(DBHandler.COLUMN_CLASS_ID, class2.getClassId());
+                                database.insert(DBHandler.TABLE_STUDENT_CLASSES, null, enrollment2);
+
+                                Toast.makeText(MainActivity.this, student1.toString(), Toast.LENGTH_LONG).show();
                             });
                 });
 
         viewSavedButton.setOnClickListener(
                 view -> {
-                    ArrayList<SubmitClass> all = DBHandler.getInstance().getAll();
-
-                    ArrayList<String> entries =
-                            all.stream()
-                                    .collect(
-                                            ArrayList::new,
-                                            (list, entry) -> list.add(entry.toString()),
-                                            ArrayList::addAll);
-
-                    ArrayAdapter<String> adapter =
-                            new ArrayAdapter<>(
-                                    MainActivity.this,
-                                    android.R.layout.simple_list_item_1,
-                                    entries);
-                    listView.setAdapter(adapter);
+                    System.out.println(DBHandler.getInstance().getStudentWithEnrolledClasses(0));
+//                    ArrayList<SubmitClass> all = DBHandler.getInstance().getAll();
+//
+//                    ArrayList<String> entries =
+//                            all.stream()
+//                                    .collect(
+//                                            ArrayList::new,
+//                                            (list, entry) -> list.add(entry.toString()),
+//                                            ArrayList::addAll);
+//
+//                    ArrayAdapter<String> adapter =
+//                            new ArrayAdapter<>(
+//                                    MainActivity.this,
+//                                    android.R.layout.simple_list_item_1,
+//                                    entries);
+//                    listView.setAdapter(adapter);
                 });
     }
 }
