@@ -1,22 +1,36 @@
 package io.github.haappi;
 
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
-@Entity
 public class SubmitClass {
-    @PrimaryKey public int uid;
+    private final String firstName;
+    private final String contentToStore;
+    private final long timestamp;
 
-    @ColumnInfo(name = "first_name")
-    public String firstName;
+    public SubmitClass(String firstName, String contentToStore) {
+        this.firstName = firstName;
+        this.contentToStore = contentToStore;
+        this.timestamp = System.currentTimeMillis();
+    }
 
-    @ColumnInfo(name = "content_saved")
-    public String contentToStore;
+    public SubmitClass(String firstName, String content, long timestamp) {
+        this.firstName = firstName;
+        this.contentToStore = content;
+        this.timestamp = timestamp;
+    }
 
-    @ColumnInfo public long timestamp;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getContentToStore() {
+        return contentToStore;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
 
     public String toString() {
-        return String.format("(%s) %s %s %s", uid, firstName, contentToStore, timestamp);
+        return String.format("name=%s content=%s unix=%s", firstName, contentToStore, timestamp);
     }
 }

@@ -1,54 +1,57 @@
 package io.github.haappi;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
+import java.util.concurrent.CompletableFuture;
 
 public class MainActivity extends AppCompatActivity {
 
     private EditText nameInput, saveTextInput;
     private Button submitButton, viewSavedButton;
-    private TextView textView;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        nameInput = findViewById(R.id.nameInput);
-        saveTextInput = findViewById(R.id.saveText);
-        submitButton = findViewById(R.id.submitButton);
-        viewSavedButton = findViewById(R.id.viewSaved);
-        textView = findViewById(R.id.textView);
+        nameInput = findViewById(R.id.name);
+        saveTextInput = findViewById(R.id.whatToSave);
+        submitButton = findViewById(R.id.add);
+        viewSavedButton = findViewById(R.id.listContent);
+        listView = findViewById(R.id.listView);
+
+        DBHandler.getInstance(MainActivity.this);
 
         submitButton.setOnClickListener(view -> {
             String firstName = nameInput.getText().toString();
             String contentToStore = saveTextInput.getText().toString();
 
 
-            Toast.makeText(MainActivity.this, "Submitted: " + firstName + " - " + contentToStore, Toast.LENGTH_SHORT).show();
+            CompletableFuture.runAsync(() -> {
+                SubmitClass entry = new SubmitClass(firstName, contentToStore);
+                DBHandler.getInstance().add(entry);
+                Toast.makeText(MainActivity.this, "Saved: " + entry, Toast.LENGTH_SHORT).show();
+            });
         });
 
         viewSavedButton.setOnClickListener(view -> {
-            new Thread() {
-                @Override
-                public void run() {
+            ArrayList<SubmitClass> all = DBHandler.getInstance().getAll();
 
-                    SubmitDao submitDao = AppDatabase.getInstance(MainActivity.this).classDao();
-                    SubmitClass[] submitEntries = submitDao.getAll();
+            ArrayList<String> entries = all.stream().collect(ArrayList::new, (list, entry) -> list.add(entry.toString()), ArrayList::addAll);
 
-                    StringBuilder stringBuilder = new StringBuilder();
-                    for (SubmitClass entry : submitEntries) {
-                        stringBuilder.append(entry.toString()).append("\n");
-                    }
-
-                    textView.setText(stringBuilder.toString());
-                }
-            }.start();
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, entries);
+            listView.setAdapter(adapter);
         });
 
     }
