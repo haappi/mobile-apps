@@ -217,7 +217,6 @@ public class DBHandler extends SQLiteOpenHelper {
         return classObject;
     }
 
-
     @SuppressLint("Range")
     public List<Student> getAllStudents() {
         List<Student> studentList = new ArrayList<>();
