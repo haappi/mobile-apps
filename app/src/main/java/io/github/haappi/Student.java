@@ -1,6 +1,5 @@
 package io.github.haappi;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,9 +8,7 @@ public class Student {
     private String studentName;
     private List<Long> enrolledClasses;
 
-    public Student() {
-
-    }
+    public Student() {}
 
     public Student(String studentName) {
         this.studentName = studentName;
@@ -42,6 +39,15 @@ public class Student {
     }
 
     public String toString() {
-        return "name=" + studentName + " id=" + studentId + " classes=" + enrolledClasses.stream().collect(ArrayList::new, (list, entry) -> list.add(entry.toString()), ArrayList::addAll);
+        return "name="
+                + studentName
+                + " id="
+                + studentId
+                + " classes="
+                + enrolledClasses.stream()
+                        .collect(
+                                ArrayList::new,
+                                (list, entry) -> list.add(entry.toString()),
+                                ArrayList::addAll);
     }
 }
