@@ -5,7 +5,9 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5FFF7">
+    android:background="#F5FFF7"
+    tools:context=".MainActivity"
+    >
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/play_button2"
@@ -57,6 +59,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/nav_bar"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         app:layout_constraintBottom_toBottomOf="parent"
