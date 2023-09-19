@@ -30,24 +30,28 @@ public class DBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableQuery = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + " (" +
-                COLUMN_NAME + " TEXT," +
-                COLUMN_AGE + " INTEGER," +
-                COLUMN_CONTENT + " TEXT" +
-                ")";
+        String createTableQuery =
+                "CREATE TABLE IF NOT EXISTS "
+                        + TABLE_NAME
+                        + " ("
+                        + COLUMN_NAME
+                        + " TEXT,"
+                        + COLUMN_AGE
+                        + " INTEGER,"
+                        + COLUMN_CONTENT
+                        + " TEXT"
+                        + ")";
         db.execSQL(createTableQuery);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
 
-    }
-
-    public ArrayList<String > getAll() {
+    public ArrayList<String> getAll() {
         String select = String.format("SELECT * FROM %s", TABLE_NAME);
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = database.rawQuery(select, null);
-        ArrayList<String > returnThingy = new ArrayList<>();
+        ArrayList<String> returnThingy = new ArrayList<>();
         int i = 0;
         while (cursor.moveToNext()) {
             String firstName = cursor.getString(0);
@@ -58,6 +62,4 @@ public class DBHandler extends SQLiteOpenHelper {
         cursor.close();
         return returnThingy;
     }
-
-
 }

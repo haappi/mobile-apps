@@ -28,7 +28,12 @@ public class CSVReader {
                 contentValues.put(DBHandler.COLUMN_AGE, age);
                 contentValues.put(DBHandler.COLUMN_CONTENT, customContent);
 
-                dbHandler.getWritableDatabase().insert(DBHandler.TABLE_NAME, null, contentValues); // who knows what the 2nd arg is for
+                dbHandler
+                        .getWritableDatabase()
+                        .insert(
+                                DBHandler.TABLE_NAME,
+                                null,
+                                contentValues); // who knows what the 2nd arg is for
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
