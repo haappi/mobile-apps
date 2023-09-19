@@ -4,17 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffeed9"
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
 
-  <Button
+  <androidx.appcompat.widget.AppCompatButton
       android:id="@+id/load_csv"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="137dp"
-      android:layout_marginTop="314dp"
+      android:layout_width="138dp"
+      android:layout_height="48dp"
+      android:layout_marginStart="136dp"
+      android:layout_marginTop="624dp"
+      android:background="@drawable/button_styling_blue"
       android:text="Load CSV File"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/delete_all"
+      android:layout_width="169dp"
+      android:layout_height="47dp"
+      android:layout_marginTop="704dp"
+      android:background="@drawable/button_styling_red"
+      android:text="Delete All Entries"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

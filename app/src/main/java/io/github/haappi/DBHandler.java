@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -25,23 +26,18 @@ public class DBHandler extends SQLiteOpenHelper {
         if (instance == null) {
             instance = new DBHandler(context);
         }
+        Log.d("DBHandler", "getInstance: " + instance);
         return instance;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableQuery =
-                "CREATE TABLE IF NOT EXISTS "
-                        + TABLE_NAME
-                        + " ("
-                        + COLUMN_NAME
-                        + " TEXT,"
-                        + COLUMN_AGE
-                        + " INTEGER,"
-                        + COLUMN_CONTENT
-                        + " TEXT"
-                        + ")";
+        String createTableQuery = String.format(
+                "CREATE TABLE %s (%s TEXT, %s INTEGER, %s TEXT)",
+                TABLE_NAME, COLUMN_NAME, COLUMN_AGE, COLUMN_CONTENT);
+        Log.d("ExecSQL", createTableQuery);
         db.execSQL(createTableQuery);
+        Log.d("DBHandler", "onCreate: " + createTableQuery);
     }
 
     @Override
@@ -52,14 +48,21 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = database.rawQuery(select, null);
         ArrayList<String> returnThingy = new ArrayList<>();
-        int i = 0;
         while (cursor.moveToNext()) {
-            String firstName = cursor.getString(0);
+            String firstName = cursor.getString(0); // same indices as the csv / create table query
             int age = cursor.getInt(1);
             String content = cursor.getString(2);
             returnThingy.add("name: " + firstName + " age: " + age + " content: " + content);
         }
         cursor.close();
+        database.close();
         return returnThingy;
+    }
+
+    public void deleteAll() {
+        String delete = String.format("DELETE FROM %s", TABLE_NAME);
+        SQLiteDatabase database = getWritableDatabase();
+        database.execSQL(delete);
+        database.close();
     }
 }
