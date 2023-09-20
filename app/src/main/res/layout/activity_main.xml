@@ -23,13 +23,36 @@
       app:layout_constraintTop_toTopOf="parent" />
 
   <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/show_entries"
+      android:layout_width="138dp"
+      android:layout_height="48dp"
+      android:layout_marginStart="136dp"
+      android:layout_marginTop="696dp"
+      android:background="@drawable/button_styling_green"
+      android:text="Show Entries"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <androidx.appcompat.widget.AppCompatButton
       android:id="@+id/delete_all"
       android:layout_width="169dp"
       android:layout_height="47dp"
-      android:layout_marginTop="704dp"
+      android:layout_marginTop="768dp"
       android:background="@drawable/button_styling_red"
       android:text="Delete All Entries"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <ListView
+      android:id="@+id/listView"
+      android:layout_width="309dp"
+      android:layout_height="498dp"
+      android:layout_marginTop="28dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
 

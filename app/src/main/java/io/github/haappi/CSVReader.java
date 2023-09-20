@@ -11,9 +11,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class CSVReader {
-    public static void loadCSVFile(Context context, String fileName) {
-        DBHandler dbHandler = DBHandler.instance;
-        SQLiteDatabase database = null; // declare it outside so i can close it in the finally block
+    public static void loadCSVFile(Context context, String fileName, SQLiteDatabase database) {
         InputStream inputStream = null;
         InputStreamReader inputStreamReader = null;
         BufferedReader reader = null;
@@ -25,8 +23,6 @@ public class CSVReader {
             reader.readLine(); // ignore the header (first) line
 
             String line;
-
-            database = dbHandler.getWritableDatabase(); // actually open the database here
 
             while ((line = reader.readLine()) != null) {
                 String[] values = line.split(","); // read the comma-separated line
