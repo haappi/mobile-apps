@@ -1,4 +1,4 @@
-package io.github.haappi;
+package io.github.haappi.Fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+
+import io.github.haappi.R;
 
 public class WorkoutFragment extends Fragment {
     private static final double PEEK_HEIGHT = 0.80;

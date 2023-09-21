@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import io.github.haappi.POJOS.User;
+
 public class DBHandler extends SQLiteOpenHelper {
     private static final String DB_NAME = "data";
     private static final int DB_VERSION = 1;
