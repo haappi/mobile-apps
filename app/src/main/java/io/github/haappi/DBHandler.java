@@ -12,7 +12,8 @@ public class DBHandler extends SQLiteOpenHelper {
 
     private static final String TABLE_NAME = "users";
     private static final String WORKOUTS_TABLE = "user_workouts";
-    private static final String TRENDS_TABLE = "user_trends";
+//    private static final String TRENDS_TABLE = "user_trends";
+    private static final String SAVED_WORKOUTS_TABLE = "saved_workouts";
 
     // -=-=-=-=-=-= users table -=-=-=-=-=-=
     private static final String FIRST_NAME = "first_name";
@@ -23,12 +24,21 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String CURRENT_GOAL = "current_goal";
 
     // -=-=-=-=-=-= user_workouts table -=-=-=-=-=-=
+    private static final String USER_LINKED_TO = "user_id";
+    private static final String TIME = "time";
+    private static final String DURATION = "duration";
+    private static final String CUSTOM_NAME = "custom_name";
+    private static final String workoutsPerformed = "workouts_performed";
 
 
+//     -=-=-=-=-=-= user_trends table -=-=-=-=-=-=
+//    private static final String DATE = "date";
 
-    // -=-=-=-=-=-= user_trends table -=-=-=-=-=-=
-    private static final String DATE = "date";
-    private static final String CALORIES = "calories";
+    // -=-=-=-=-=-= saved_workouts table -=-=-=-=-=-=
+    private static final String SAVED_WORKOUTS_USER_LINKED_TO = "user_id";
+    private static final String NAME = "name";
+    private static final String SETS = "sets";
+    private static final String LAST_TIME_PERFORMED = "last_time_performed";
 
 
     private static DBHandler instance;
@@ -52,28 +62,41 @@ public class DBHandler extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase database) {
         String createTable = "CREATE TABLE " + TABLE_NAME + " ("
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + FIRST_NAME + " TEXT, "
                 + LAST_NAME + " TEXT, "
                 + HEIGHT + " INTEGER, "
                 + WEIGHT + " INTEGER, "
-                + METRIC_OR_CUSTOMARY + " BOOLEAN, "
-                + CURRENT_GOAL + " INTEGER);";
+                + METRIC_OR_CUSTOMARY + " INTEGER, "
+                + CURRENT_GOAL + " INTEGER"
+                + ")";
         database.execSQL(createTable);
 
-//        createTable = "CREATE TABLE " + WORKOUTS_TABLE + " ("
+        createTable = "CREATE TABLE " + WORKOUTS_TABLE + " ("
+                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + USER_LINKED_TO + " INTEGER, "
+                + TIME + " INTEGER, "
+                + DURATION + " INTEGER, "
+                + CUSTOM_NAME + " TEXT, "
+                + workoutsPerformed + " INTEGER"
+                + ")";
+        database.execSQL(createTable);
+
+//        createTable = "CREATE TABLE " + TRENDS_TABLE + " ("
 //                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-//                + "name TEXT, "
-//                + "date TEXT, "
-//                + "duration INTEGER, "
-//                + "distance INTEGER, "
-//                + "calories INTEGER, "
-//                + "notes TEXT);";
+//                + USER_LINKED_TO + " INTEGER, "
+//                + DATE + " INTEGER, "
+//                + CALORIES + " INTEGER"
+//                + ")";
 //        database.execSQL(createTable);
 
-        createTable = "CREATE TABLE " + TRENDS_TABLE + " ("
+        createTable = "CREATE TABLE " + SAVED_WORKOUTS_TABLE + " ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + DATE + " TEXT, "
-                + CALORIES + " INTEGER);";
+                + SAVED_WORKOUTS_USER_LINKED_TO + " INTEGER, "
+                + NAME + " TEXT, "
+                + SETS + " INTEGER, "
+                + LAST_TIME_PERFORMED + " INTEGER"
+                + ")";
         database.execSQL(createTable);
     }
 
