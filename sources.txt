@@ -3,3 +3,5 @@ In GPT: "how do i overlay fragment on activity in andriod
          ie i have a start screen thing and i need to show a second screen with information. but the second screen should be overlayed so i can just easily swipe up to show it or swipe down to hide it (apart from the top 20%)
 "
 https://stackoverflow.com/questions/18656949/how-to-implement-horizontalscrollview-like-gallery
+
+"how do i center an item properly on multiple screens in android" -> "i want it to be within thumbs reacbale length (so 2/3 down from the top?)"
