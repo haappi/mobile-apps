@@ -13,7 +13,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     private static final String TABLE_NAME = "users";
     private static final String WORKOUTS_TABLE = "user_workouts";
-//    private static final String TRENDS_TABLE = "user_trends";
+    //    private static final String TRENDS_TABLE = "user_trends";
     private static final String SAVED_WORKOUTS_TABLE = "saved_workouts";
 
     // -=-=-=-=-=-= users table -=-=-=-=-=-=
@@ -43,7 +43,11 @@ public class DBHandler extends SQLiteOpenHelper {
 
 
     private static DBHandler instance;
-    
+
+    private DBHandler(Context context) {
+        super(context, DB_NAME, null, DB_VERSION);
+    }
+
     public static DBHandler getInstance() {
         if (instance == null) {
             throw new RuntimeException("DBHandler not initialized. Call DBHandler.init() first.");
@@ -55,10 +59,6 @@ public class DBHandler extends SQLiteOpenHelper {
         if (instance == null) {
             instance = new DBHandler(context);
         }
-    }
-    
-    private DBHandler(Context context) {
-        super(context, DB_NAME, null, DB_VERSION);
     }
 
     public void onCreate(SQLiteDatabase database) {
@@ -106,22 +106,10 @@ public class DBHandler extends SQLiteOpenHelper {
 
     }
 
-    public void add(User user) {
-        getWritableDatabase().execSQL("INSERT INTO " + TABLE_NAME + " ("
-                + FIRST_NAME + ", "
-                + LAST_NAME + ", "
-                + HEIGHT + ", "
-                + WEIGHT + ", "
-                + METRIC_OR_CUSTOMARY + ", "
-                + CURRENT_GOAL
-                + ") VALUES ('"
-                + user.getFirstName() + "', '"
-                + user.getLastName() + "', "
-                + user.getHeight() + ", "
-                + user.getWeight() + ", "
-                + (user.isMetric() ? 0 : 1) + ", "
-                + user.getCurrentGoal()
-                + ")");
+    public User add(User user) {
+        SQLiteDatabase database = getWritableDatabase();
+        user.setId(database.insert(TABLE_NAME, null, user.toContentValues()));
+        return user;
     }
 
     public User getUser(int userID) {
@@ -129,16 +117,9 @@ public class DBHandler extends SQLiteOpenHelper {
         return User.fromCursor(cursor);
     }
 
-    public void modify(int userID, User user) {
-        getWritableDatabase().execSQL("UPDATE " + TABLE_NAME + " SET "
-                + FIRST_NAME + " = '" + user.getFirstName() + "', "
-                + LAST_NAME + " = '" + user.getLastName() + "', "
-                + HEIGHT + " = " + user.getHeight() + ", "
-                + WEIGHT + " = " + user.getWeight() + ", "
-                + METRIC_OR_CUSTOMARY + " = " + (user.isMetric() ? 0 : 1) + ", "
-                + CURRENT_GOAL + " = " + user.getCurrentGoal()
-                + " WHERE id = " + user.getId());
-
+    public User modify(User user) {
+        getWritableDatabase().insert(TABLE_NAME, null, user.toContentValues());
+        return user;
     }
 
 }
