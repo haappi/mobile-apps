@@ -1,6 +1,7 @@
 package io.github.haappi;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -106,10 +107,37 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     public void add(User user) {
+        getWritableDatabase().execSQL("INSERT INTO " + TABLE_NAME + " ("
+                + FIRST_NAME + ", "
+                + LAST_NAME + ", "
+                + HEIGHT + ", "
+                + WEIGHT + ", "
+                + METRIC_OR_CUSTOMARY + ", "
+                + CURRENT_GOAL
+                + ") VALUES ('"
+                + user.getFirstName() + "', '"
+                + user.getLastName() + "', "
+                + user.getHeight() + ", "
+                + user.getWeight() + ", "
+                + (user.isMetric() ? 0 : 1) + ", "
+                + user.getCurrentGoal()
+                + ")");
+    }
 
+    public User getUser(int userID) {
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE id = " + userID, null);
+        return User.fromCursor(cursor);
     }
 
     public void modify(int userID, User user) {
+        getWritableDatabase().execSQL("UPDATE " + TABLE_NAME + " SET "
+                + FIRST_NAME + " = '" + user.getFirstName() + "', "
+                + LAST_NAME + " = '" + user.getLastName() + "', "
+                + HEIGHT + " = " + user.getHeight() + ", "
+                + WEIGHT + " = " + user.getWeight() + ", "
+                + METRIC_OR_CUSTOMARY + " = " + (user.isMetric() ? 0 : 1) + ", "
+                + CURRENT_GOAL + " = " + user.getCurrentGoal()
+                + " WHERE id = " + user.getId());
 
     }
 
