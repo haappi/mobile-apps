@@ -2,7 +2,6 @@ package io.github.haappi;
 
 import static io.github.haappi.DBHandler.TABLE_NAME;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;

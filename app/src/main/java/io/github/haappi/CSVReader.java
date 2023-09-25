@@ -28,10 +28,12 @@ public class CSVReader {
      * @param fileName the name of the file, relative from the assets folder
      * @param database the database to load the file into
      */
-    public static void loadCSVFile(@NotNull Context context, @NotNull String fileName, @NotNull SQLiteDatabase database) {
+    public static void loadCSVFile(
+            @NotNull Context context, @NotNull String fileName, @NotNull SQLiteDatabase database) {
         InputStream inputStream = null;
         InputStreamReader inputStreamReader = null;
-        BufferedReader reader = null; // allocate streams and readers for clean closing in finally block
+        BufferedReader reader =
+                null; // allocate streams and readers for clean closing in finally block
         try {
             inputStream = context.getAssets().open(fileName);
             inputStreamReader = new InputStreamReader(inputStream);
@@ -54,9 +56,13 @@ public class CSVReader {
                 contentValues.put(DBHandler.COLUMN_AGE, age);
                 contentValues.put(DBHandler.COLUMN_CONTENT, customContent);
 
-                database.insert(DBHandler.TABLE_NAME, null, contentValues); // insert the values into the database
+                database.insert(
+                        DBHandler.TABLE_NAME,
+                        null,
+                        contentValues); // insert the values into the database
                 Log.d("CSV Insert", "Inserting: " + contentValues);
-                // content values are a map, but they make it easier opposed to doing it manually like INSERT INTO ...
+                // content values are a map, but they make it easier opposed to doing it manually
+                // like INSERT INTO ...
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -83,7 +89,8 @@ public class CSVReader {
     public static List<String[]> loadCSVFile(@NotNull Context context, @NotNull String fileName) {
         InputStream inputStream = null;
         InputStreamReader inputStreamReader = null;
-        BufferedReader reader = null; // allocate streams and readers for clean closing in finally block
+        BufferedReader reader =
+                null; // allocate streams and readers for clean closing in finally block
         ArrayList<String[]> lines = new ArrayList<>();
         try {
             inputStream = context.getAssets().open(fileName);

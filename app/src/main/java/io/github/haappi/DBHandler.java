@@ -1,12 +1,9 @@
 package io.github.haappi;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
-import java.util.ArrayList;
 
 public class DBHandler extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "mydb";
@@ -20,12 +17,12 @@ public class DBHandler extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableQuery = String.format(
-                "CREATE TABLE %s (%s TEXT, %s INTEGER, %s TEXT)",
-                TABLE_NAME, COLUMN_NAME, COLUMN_AGE, COLUMN_CONTENT);
+        String createTableQuery =
+                String.format(
+                        "CREATE TABLE %s (%s TEXT, %s INTEGER, %s TEXT)",
+                        TABLE_NAME, COLUMN_NAME, COLUMN_AGE, COLUMN_CONTENT);
         Log.d("ExecSQL", createTableQuery);
         db.execSQL(createTableQuery);
         Log.d("DBHandler", "onCreate: " + createTableQuery);
@@ -33,5 +30,4 @@ public class DBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
-
 }
