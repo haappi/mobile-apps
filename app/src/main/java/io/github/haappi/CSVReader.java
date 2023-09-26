@@ -45,6 +45,9 @@ public class CSVReader {
 
             while ((line = reader.readLine()) != null) {
                 String[] values = line.split(","); // read the comma-separated line
+                if (values.length == 0) {
+                    continue; // skip empty lines
+                }
                 // a line of bobby,18,happy becomes ["bobby", "18", "happy"]
 
                 String name = values[0]; // grab the appropriate values using indices
