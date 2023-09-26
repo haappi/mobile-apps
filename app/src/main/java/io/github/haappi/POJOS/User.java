@@ -1,8 +1,13 @@
 package io.github.haappi.POJOS;
 
+import static io.github.haappi.DBHandler.TABLE_NAME;
+
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import io.github.haappi.DBHandler;
 
 public class User {
     private long id;
@@ -105,5 +110,34 @@ public class User {
         contentValues.put("metric", metric ? 0 : 1);
         contentValues.put("current_goal", currentGoal);
         return contentValues;
+    }
+
+    public static User createUser(User user) {
+        SQLiteDatabase database = DBHandler.getInstance().getWritableDatabase();
+        user.setId(database.insert(TABLE_NAME, null, user.toContentValues()));
+        return user;
+    }
+
+    public static User getUser(int userId) {
+        Cursor cursor = DBHandler.getInstance().getReadableDatabase().rawQuery(
+                "SELECT * FROM " + TABLE_NAME + " WHERE id = " + userId, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            return User.fromCursor(cursor);
+        }
+
+        return null;
+    }
+
+    public static User updateUser(User user) {
+        SQLiteDatabase database = DBHandler.getInstance().getWritableDatabase();
+        database.update(TABLE_NAME, user.toContentValues(), "id = ?",
+                new String[]{String.valueOf(user.getId())}); // doing it this way to prevent SQL injection
+        return user;
+    }
+
+    public static void deleteUser(int userId) {
+        SQLiteDatabase database = DBHandler.getInstance().getWritableDatabase();
+        database.delete(TABLE_NAME, "id = ?", new String[]{String.valueOf(userId)});
     }
 }

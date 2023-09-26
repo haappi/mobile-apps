@@ -1,8 +1,16 @@
 package io.github.haappi.POJOS;
 
+import static io.github.haappi.DBHandler.WORKOUTS_TABLE;
+
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.github.haappi.DBHandler;
 
 public class UserWorkout {
     private long id;
@@ -80,5 +88,64 @@ public class UserWorkout {
 
     public void setWorkoutsPerformed(int workoutsPerformed) {
         this.workoutsPerformed = workoutsPerformed;
+    }
+
+    public static UserWorkout createUserWorkout(UserWorkout userWorkout) {
+        SQLiteDatabase database = DBHandler.getInstance().getWritableDatabase();
+        userWorkout.setId(database.insert(WORKOUTS_TABLE, null, userWorkout.toContentValues()));
+        return userWorkout;
+    }
+
+    public static UserWorkout getUserWorkout(int userWorkoutId) {
+        Cursor cursor = DBHandler.getInstance().getReadableDatabase().rawQuery(
+                "SELECT * FROM " + WORKOUTS_TABLE + " WHERE id = " + userWorkoutId, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            return UserWorkout.fromCursor(cursor);
+        }
+
+        return null;
+    }
+
+    public static UserWorkout updateUserWorkout(UserWorkout userWorkout) {
+        SQLiteDatabase database = DBHandler.getInstance().getWritableDatabase();
+        database.update(WORKOUTS_TABLE, userWorkout.toContentValues(), "id = ?",
+                new String[]{String.valueOf(userWorkout.getId())});
+        return userWorkout;
+    }
+
+    public static void deleteUserWorkout(int userWorkoutId) {
+        SQLiteDatabase database = DBHandler.getInstance().getWritableDatabase();
+        database.delete(WORKOUTS_TABLE, "id = ?", new String[]{String.valueOf(userWorkoutId)});
+    }
+
+    public void linkUserToWorkout(User user) {
+        this.setUserLinkedTo(user.getId());
+        UserWorkout.createUserWorkout(this);
+    }
+
+    public static List<UserWorkout> getWorkoutsBetweenTimestamps(long startTime, long endTime) {
+        SQLiteDatabase database = DBHandler.getInstance().getReadableDatabase();
+        String[] columns = {
+                "id", "user_id", "time", "duration", "custom_name", "workouts_performed"
+        };
+
+        String selection = "time >= ? AND time <= ?";
+        String[] selectionArgs = {String.valueOf(startTime), String.valueOf(endTime)};
+
+        Cursor cursor = database.query(WORKOUTS_TABLE, columns, selection, selectionArgs, null, null, null);
+        List<UserWorkout> workouts = new ArrayList<>();
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                workouts.add(UserWorkout.fromCursor(cursor));
+            } while (cursor.moveToNext());
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+
+        return workouts;
     }
 }

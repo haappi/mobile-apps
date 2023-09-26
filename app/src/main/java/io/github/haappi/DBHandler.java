@@ -11,10 +11,10 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String DB_NAME = "data";
     private static final int DB_VERSION = 1;
 
-    private static final String TABLE_NAME = "users";
-    private static final String WORKOUTS_TABLE = "user_workouts";
+    public static final String TABLE_NAME = "users";
+    public static final String WORKOUTS_TABLE = "user_workouts";
     //    private static final String TRENDS_TABLE = "user_trends";
-    private static final String SAVED_WORKOUTS_TABLE = "saved_workouts";
+    public static final String SAVED_WORKOUTS_TABLE = "saved_workouts";
 
     // -=-=-=-=-=-= users table -=-=-=-=-=-=
     private static final String FIRST_NAME = "first_name";
