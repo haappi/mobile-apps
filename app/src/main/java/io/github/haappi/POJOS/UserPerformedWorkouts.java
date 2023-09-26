@@ -7,8 +7,8 @@ public class UserPerformedWorkouts {
     private final String name;
     private final String sets;
 
-
-    public UserPerformedWorkouts(int userLinkedTo, long time, long duration, String name, String sets) {
+    public UserPerformedWorkouts(
+            int userLinkedTo, long time, long duration, String name, String sets) {
         this.userLinkedTo = userLinkedTo;
         this.time = time;
         this.duration = duration;

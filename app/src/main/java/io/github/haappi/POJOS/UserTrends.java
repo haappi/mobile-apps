@@ -1,5 +1,3 @@
 package io.github.haappi.POJOS;
 
-public class UserTrends {
-
-}
+public class UserTrends {}

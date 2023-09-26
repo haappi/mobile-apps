@@ -18,7 +18,14 @@ public class User {
     private boolean metric; // true = metric, false = customary 0 = metric, 1 = customary
     private String currentGoal;
 
-    public User(long id, String firstName, String lastName, int height, int weight, boolean metric, String currentGoal) {
+    public User(
+            long id,
+            String firstName,
+            String lastName,
+            int height,
+            int weight,
+            boolean metric,
+            String currentGoal) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -28,9 +35,7 @@ public class User {
         this.currentGoal = currentGoal;
     }
 
-    public User() {
-
-    }
+    public User() {}
 
     @SuppressLint("Range")
     public static User fromCursor(Cursor cursor) {
@@ -119,8 +124,10 @@ public class User {
     }
 
     public static User getUser(int userId) {
-        Cursor cursor = DBHandler.getInstance().getReadableDatabase().rawQuery(
-                "SELECT * FROM " + TABLE_NAME + " WHERE id = " + userId, null);
+        Cursor cursor =
+                DBHandler.getInstance()
+                        .getReadableDatabase()
+                        .rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE id = " + userId, null);
 
         if (cursor != null && cursor.moveToFirst()) {
             return User.fromCursor(cursor);
@@ -131,13 +138,18 @@ public class User {
 
     public static User updateUser(User user) {
         SQLiteDatabase database = DBHandler.getInstance().getWritableDatabase();
-        database.update(TABLE_NAME, user.toContentValues(), "id = ?",
-                new String[]{String.valueOf(user.getId())}); // doing it this way to prevent SQL injection
+        database.update(
+                TABLE_NAME,
+                user.toContentValues(),
+                "id = ?",
+                new String[] {
+                    String.valueOf(user.getId())
+                }); // doing it this way to prevent SQL injection
         return user;
     }
 
     public static void deleteUser(int userId) {
         SQLiteDatabase database = DBHandler.getInstance().getWritableDatabase();
-        database.delete(TABLE_NAME, "id = ?", new String[]{String.valueOf(userId)});
+        database.delete(TABLE_NAME, "id = ?", new String[] {String.valueOf(userId)});
     }
 }

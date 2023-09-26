@@ -31,16 +31,14 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String CUSTOM_NAME = "custom_name";
     private static final String workoutsPerformed = "workouts_performed";
 
-
-//     -=-=-=-=-=-= user_trends table -=-=-=-=-=-=
-//    private static final String DATE = "date";
+    //     -=-=-=-=-=-= user_trends table -=-=-=-=-=-=
+    //    private static final String DATE = "date";
 
     // -=-=-=-=-=-= saved_workouts table -=-=-=-=-=-=
     private static final String SAVED_WORKOUTS_USER_LINKED_TO = "user_id";
     private static final String NAME = "name";
     private static final String SETS = "sets";
     private static final String LAST_TIME_PERFORMED = "last_time_performed";
-
 
     private static DBHandler instance;
 
@@ -62,49 +60,71 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     public void onCreate(SQLiteDatabase database) {
-        String createTable = "CREATE TABLE " + TABLE_NAME + " ("
-                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + FIRST_NAME + " TEXT, "
-                + LAST_NAME + " TEXT, "
-                + HEIGHT + " INTEGER, "
-                + WEIGHT + " INTEGER, "
-                + METRIC_OR_CUSTOMARY + " INTEGER, "
-                + CURRENT_GOAL + " INTEGER"
-                + ")";
+        String createTable =
+                "CREATE TABLE "
+                        + TABLE_NAME
+                        + " ("
+                        + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                        + FIRST_NAME
+                        + " TEXT, "
+                        + LAST_NAME
+                        + " TEXT, "
+                        + HEIGHT
+                        + " INTEGER, "
+                        + WEIGHT
+                        + " INTEGER, "
+                        + METRIC_OR_CUSTOMARY
+                        + " INTEGER, "
+                        + CURRENT_GOAL
+                        + " INTEGER"
+                        + ")";
         database.execSQL(createTable);
 
-        createTable = "CREATE TABLE " + WORKOUTS_TABLE + " ("
-                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + USER_LINKED_TO + " INTEGER, "
-                + TIME + " INTEGER, "
-                + DURATION + " INTEGER, "
-                + CUSTOM_NAME + " TEXT, "
-                + workoutsPerformed + " INTEGER"
-                + ")";
+        createTable =
+                "CREATE TABLE "
+                        + WORKOUTS_TABLE
+                        + " ("
+                        + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                        + USER_LINKED_TO
+                        + " INTEGER, "
+                        + TIME
+                        + " INTEGER, "
+                        + DURATION
+                        + " INTEGER, "
+                        + CUSTOM_NAME
+                        + " TEXT, "
+                        + workoutsPerformed
+                        + " INTEGER"
+                        + ")";
         database.execSQL(createTable);
 
-//        createTable = "CREATE TABLE " + TRENDS_TABLE + " ("
-//                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-//                + USER_LINKED_TO + " INTEGER, "
-//                + DATE + " INTEGER, "
-//                + CALORIES + " INTEGER"
-//                + ")";
-//        database.execSQL(createTable);
+        //        createTable = "CREATE TABLE " + TRENDS_TABLE + " ("
+        //                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+        //                + USER_LINKED_TO + " INTEGER, "
+        //                + DATE + " INTEGER, "
+        //                + CALORIES + " INTEGER"
+        //                + ")";
+        //        database.execSQL(createTable);
 
-        createTable = "CREATE TABLE " + SAVED_WORKOUTS_TABLE + " ("
-                + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + SAVED_WORKOUTS_USER_LINKED_TO + " INTEGER, "
-                + NAME + " TEXT, "
-                + SETS + " INTEGER, "
-                + LAST_TIME_PERFORMED + " INTEGER"
-                + ")";
+        createTable =
+                "CREATE TABLE "
+                        + SAVED_WORKOUTS_TABLE
+                        + " ("
+                        + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                        + SAVED_WORKOUTS_USER_LINKED_TO
+                        + " INTEGER, "
+                        + NAME
+                        + " TEXT, "
+                        + SETS
+                        + " INTEGER, "
+                        + LAST_TIME_PERFORMED
+                        + " INTEGER"
+                        + ")";
         database.execSQL(createTable);
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int previousVersion, int newVersion) {
-
-    }
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int previousVersion, int newVersion) {}
 
     public User add(User user) {
         SQLiteDatabase database = getWritableDatabase();
@@ -113,7 +133,9 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     public User getUser(int userID) {
-        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE id = " + userID, null);
+        Cursor cursor =
+                getReadableDatabase()
+                        .rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE id = " + userID, null);
         return User.fromCursor(cursor);
     }
 
@@ -121,5 +143,4 @@ public class DBHandler extends SQLiteOpenHelper {
         getWritableDatabase().insert(TABLE_NAME, null, user.toContentValues());
         return user;
     }
-
 }
