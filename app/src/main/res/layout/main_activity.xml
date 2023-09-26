@@ -61,13 +61,13 @@
         android:id="@+id/nav_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="8dp"
         android:background="#6ED681"
-        app:itemIconSize="48dp"
+        android:elevation="8dp"
         app:flow_verticalAlign="center"
+        app:itemIconSize="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_nav_menu"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
 
     <TextView
         android:layout_width="match_parent"

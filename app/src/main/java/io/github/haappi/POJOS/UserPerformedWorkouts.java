@@ -1,11 +1,11 @@
 package io.github.haappi.POJOS;
 
 public class UserPerformedWorkouts {
-    private int userLinkedTo;
-    private long time;
-    private long duration;
-    private String name;
-    private String sets;
+    private final int userLinkedTo;
+    private final long time;
+    private final long duration;
+    private final String name;
+    private final String sets;
 
 
     public UserPerformedWorkouts(int userLinkedTo, long time, long duration, String name, String sets) {

@@ -52,24 +52,48 @@ public class User {
         return firstName;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
     public String getLastName() {
         return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public int getHeight() {
         return height;
     }
 
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
     public int getWeight() {
         return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
     public boolean isMetric() {
         return metric;
     }
 
+    public void setMetric(int metric) {
+        this.metric = metric == 0;
+    }
+
     public String getCurrentGoal() {
         return currentGoal;
+    }
+
+    public void setCurrentGoal(String currentGoal) {
+        this.currentGoal = currentGoal;
     }
 
     public ContentValues toContentValues() {
@@ -81,29 +105,5 @@ public class User {
         contentValues.put("metric", metric ? 0 : 1);
         contentValues.put("current_goal", currentGoal);
         return contentValues;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public void setWeight(int weight) {
-        this.weight = weight;
-    }
-
-    public void setMetric(int metric) {
-        this.metric = metric == 0;
-    }
-
-    public void setCurrentGoal(String currentGoal) {
-        this.currentGoal = currentGoal;
     }
 }

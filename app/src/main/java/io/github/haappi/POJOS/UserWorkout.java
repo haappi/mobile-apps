@@ -12,6 +12,18 @@ public class UserWorkout {
     private String customName;
     private int workoutsPerformed;
 
+    @SuppressLint("Range")
+    public static UserWorkout fromCursor(Cursor cursor) {
+        UserWorkout userWorkout = new UserWorkout();
+        userWorkout.setId(cursor.getLong(cursor.getColumnIndex("id")));
+        userWorkout.setUserLinkedTo(cursor.getLong(cursor.getColumnIndex("user_id")));
+        userWorkout.setTime(cursor.getLong(cursor.getColumnIndex("time")));
+        userWorkout.setDuration(cursor.getLong(cursor.getColumnIndex("duration")));
+        userWorkout.setCustomName(cursor.getString(cursor.getColumnIndex("custom_name")));
+        userWorkout.setWorkoutsPerformed(cursor.getInt(cursor.getColumnIndex("workouts_performed")));
+        return userWorkout;
+    }
+
     public ContentValues toContentValues() {
         ContentValues values = new ContentValues();
         values.put("user_id", userLinkedTo);
@@ -68,17 +80,5 @@ public class UserWorkout {
 
     public void setWorkoutsPerformed(int workoutsPerformed) {
         this.workoutsPerformed = workoutsPerformed;
-    }
-
-    @SuppressLint("Range")
-    public static UserWorkout fromCursor(Cursor cursor) {
-        UserWorkout userWorkout = new UserWorkout();
-        userWorkout.setId(cursor.getLong(cursor.getColumnIndex("id")));
-        userWorkout.setUserLinkedTo(cursor.getLong(cursor.getColumnIndex("user_id")));
-        userWorkout.setTime(cursor.getLong(cursor.getColumnIndex("time")));
-        userWorkout.setDuration(cursor.getLong(cursor.getColumnIndex("duration")));
-        userWorkout.setCustomName(cursor.getString(cursor.getColumnIndex("custom_name")));
-        userWorkout.setWorkoutsPerformed(cursor.getInt(cursor.getColumnIndex("workouts_performed")));
-        return userWorkout;
     }
 }

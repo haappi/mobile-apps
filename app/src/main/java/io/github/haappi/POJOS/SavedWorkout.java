@@ -11,6 +11,17 @@ public class SavedWorkout {
     private int sets;
     private long lastTimePerformed;
 
+    @SuppressLint("Range")
+    public static SavedWorkout fromCursor(Cursor cursor) {
+        SavedWorkout savedWorkout = new SavedWorkout();
+        savedWorkout.setId(cursor.getLong(cursor.getColumnIndex("id")));
+        savedWorkout.setSavedWorkoutsUserLinkedTo(cursor.getLong(cursor.getColumnIndex("user_id")));
+        savedWorkout.setName(cursor.getString(cursor.getColumnIndex("name")));
+        savedWorkout.setSets(cursor.getInt(cursor.getColumnIndex("sets")));
+        savedWorkout.setLastTimePerformed(cursor.getLong(cursor.getColumnIndex("last_time_performed")));
+        return savedWorkout;
+    }
+
     public long getId() {
         return id;
     }
@@ -58,17 +69,6 @@ public class SavedWorkout {
         values.put("sets", sets);
         values.put("last_time_performed", lastTimePerformed);
         return values;
-    }
-
-    @SuppressLint("Range")
-    public static SavedWorkout fromCursor(Cursor cursor) {
-        SavedWorkout savedWorkout = new SavedWorkout();
-        savedWorkout.setId(cursor.getLong(cursor.getColumnIndex("id")));
-        savedWorkout.setSavedWorkoutsUserLinkedTo(cursor.getLong(cursor.getColumnIndex("user_id")));
-        savedWorkout.setName(cursor.getString(cursor.getColumnIndex("name")));
-        savedWorkout.setSets(cursor.getInt(cursor.getColumnIndex("sets")));
-        savedWorkout.setLastTimePerformed(cursor.getLong(cursor.getColumnIndex("last_time_performed")));
-        return savedWorkout;
     }
 
 }
