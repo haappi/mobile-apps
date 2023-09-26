@@ -22,13 +22,12 @@ public class MainActivity extends AppCompatActivity {
         Button button = findViewById(R.id.load_csv);
         button.setOnClickListener(
                 (view) -> { // this is a lambda expression, just easier instead of the whole
-                            // @Override nonsense
+                    // @Override nonsense
                     CSVReader.loadCSVFile(
                             MainActivity.this,
                             "sample.csv",
-                            databaseManager
-                                    .getWritableDatabase()); // You could instantiate a new
-                                                             // DBManager... but why...?
+                            databaseManager.getWritableDatabase()); // You could instantiate a new
+                    // DBManager... but why...?
                     Toast.makeText(this, "Loaded CSV file into Database", Toast.LENGTH_SHORT)
                             .show();
                 });
@@ -40,10 +39,8 @@ public class MainActivity extends AppCompatActivity {
                             databaseManager.getAll().stream()
                                     .reduce(
                                             "",
-                                            (a, b) ->
-                                                    a + "\n"
-                                                            + b); // You could instantiate a new
-                                                                  // DBManager... but why...?
+                                            (a, b) -> a + "\n" + b); // You could instantiate a new
+                    // DBManager... but why...?
 
                     ListView listView = findViewById(R.id.listView);
                     ArrayAdapter<String> adapter =
@@ -52,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                                     R.layout.list_item,
                                     databaseManager
                                             .getAll()); // You could instantiate a new DBManager...
-                                                        // but why...?
+                    // but why...?
                     listView.setAdapter(adapter);
 
                     Log.d("CSV File Content", allEntries);
@@ -63,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                         view -> {
                             databaseManager
                                     .deleteAll(); // You could instantiate a new DBManager... but
-                                                  // why...?
+                            // why...?
                             Toast.makeText(this, "Deleted all entries", Toast.LENGTH_SHORT).show();
                         });
 
