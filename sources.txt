@@ -5,3 +5,4 @@ In GPT: "how do i overlay fragment on activity in andriod
 https://stackoverflow.com/questions/18656949/how-to-implement-horizontalscrollview-like-gallery
 
 "how do i center an item properly on multiple screens in android" -> "i want it to be within thumbs reacbale length (so 2/3 down from the top?)"
+https://m2.material.io/components/bottom-navigation/android
