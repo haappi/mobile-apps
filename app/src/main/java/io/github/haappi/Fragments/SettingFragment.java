@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-
 import io.github.haappi.R;
 
 public class SettingFragment extends Fragment {
@@ -29,10 +27,10 @@ public class SettingFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d("SettingFragment", "onViewCreated: ");
-//        displayName = getView().findViewById(R.id.displayName);
-//        displayName.setText("Hey, " + Database.getDBHandler().getFirstName());
+        //        displayName = getView().findViewById(R.id.displayName);
+        //        displayName.setText("Hey, " + Database.getDBHandler().getFirstName());
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-//        fragmentTransaction.replace(R.id.stopwatchContainer, StopwatchFragment);
+        //        fragmentTransaction.replace(R.id.stopwatchContainer, StopwatchFragment);
         fragmentTransaction.commit();
     }
 }

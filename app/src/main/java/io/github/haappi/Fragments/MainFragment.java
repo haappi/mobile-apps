@@ -1,6 +1,5 @@
 package io.github.haappi.Fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,10 +27,10 @@ public class MainFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d("MainFragment", "onViewCreated: ");
-//        displayName = getView().findViewById(R.id.displayName);
-//        displayName.setText("Hey, " + Database.getDBHandler().getFirstName());
+        //        displayName = getView().findViewById(R.id.displayName);
+        //        displayName.setText("Hey, " + Database.getDBHandler().getFirstName());
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-//        fragmentTransaction.replace(R.id.stopwatchContainer, StopwatchFragment);
+        //        fragmentTransaction.replace(R.id.stopwatchContainer, StopwatchFragment);
         fragmentTransaction.commit();
     }
 }

@@ -5,7 +5,7 @@ import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Onboarding extends AppCompatActivity {
-    public void changeToMain(){
+    public void changeToMain() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
