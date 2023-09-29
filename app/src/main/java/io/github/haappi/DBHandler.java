@@ -144,4 +144,12 @@ public class DBHandler extends SQLiteOpenHelper {
         getWritableDatabase().insert(TABLE_NAME, null, user.toContentValues());
         return user;
     }
+
+        public User update(User user) {
+            int rowsUpdated = getWritableDatabase().update(TABLE_NAME, user.toContentValues(), "id = ?", new String[]{String.valueOf(user.getId())});
+            if (rowsUpdated > 0) {
+                return user;
+            }
+            return null;
+        }
 }

@@ -35,14 +35,15 @@
         tools:layout_editor_absoluteX="175dp" />
 
     <EditText
+        android:id="@+id/currentWeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="400dp"
         android:layout_marginBottom="120dp"
         android:ems="10"
         android:fontFamily="@font/jua"
-        android:hint="Set Current Weight"
-        android:inputType="textPersonName"
+        android:hint="Set Current Height"
+        android:inputType="numberSigned"
         android:textAlignment="center"
         android:textColorHint="#5a5a5a"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
@@ -52,14 +53,15 @@
         app:layout_constraintVertical_bias="0.118" />
 
     <EditText
+        android:id="@+id/currentHeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="340dp"
         android:layout_marginBottom="200dp"
         android:ems="10"
         android:fontFamily="@font/jua"
-        android:hint="Set Current Weight"
-        android:inputType="textPersonName"
+        android:hint="Set Current Heigh"
+        android:inputType="numberSigned"
         android:textAlignment="center"
         android:textColorHint="#5a5a5a"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
@@ -69,6 +71,7 @@
         app:layout_constraintVertical_bias="0.269" />
 
     <EditText
+        android:id="@+id/setName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="280dp"
