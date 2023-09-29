@@ -124,8 +124,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int previousVersion, int newVersion) {
-    }
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int previousVersion, int newVersion) {}
 
     public User add(User user) {
         SQLiteDatabase database = getWritableDatabase();
@@ -145,11 +144,17 @@ public class DBHandler extends SQLiteOpenHelper {
         return user;
     }
 
-        public User update(User user) {
-            int rowsUpdated = getWritableDatabase().update(TABLE_NAME, user.toContentValues(), "id = ?", new String[]{String.valueOf(user.getId())});
-            if (rowsUpdated > 0) {
-                return user;
-            }
-            return null;
+    public User update(User user) {
+        int rowsUpdated =
+                getWritableDatabase()
+                        .update(
+                                TABLE_NAME,
+                                user.toContentValues(),
+                                "id = ?",
+                                new String[] {String.valueOf(user.getId())});
+        if (rowsUpdated > 0) {
+            return user;
         }
+        return null;
+    }
 }

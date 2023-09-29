@@ -24,7 +24,6 @@ public class TimerFragment extends BottomSheetDialogFragment {
         throw new RuntimeException("Not implelemted yet dingus");
     }
 
-
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,7 +31,5 @@ public class TimerFragment extends BottomSheetDialogFragment {
 
         timer = view.findViewById(R.id.timer);
         return view;
-
-
     }
 }

@@ -9,12 +9,12 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import java.util.List;
-
 import io.github.haappi.POJOS.User;
 import io.github.haappi.POJOS.UserWorkout;
 import io.github.haappi.R;
 import io.github.haappi.WorkoutAdapater;
+
+import java.util.List;
 
 public class Profile extends Fragment {
     private static final double PEEK_HEIGHT = 0.80;
@@ -37,7 +37,8 @@ public class Profile extends Fragment {
         nameView.setText("Hey, " + user.getFirstName());
         // get count of workouts from the last seven days
         long sevenDaysAgo = System.currentTimeMillis() - (604800 * 1000);
-        List<UserWorkout> workouts = UserWorkout.getWorkoutsBetweenTimestamps(System.currentTimeMillis(), sevenDaysAgo);
+        List<UserWorkout> workouts =
+                UserWorkout.getWorkoutsBetweenTimestamps(System.currentTimeMillis(), sevenDaysAgo);
 
         WorkoutAdapater adapter = new WorkoutAdapater(view.getContext(), workouts);
         savedWorkouts.setAdapter(adapter);

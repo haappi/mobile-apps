@@ -22,27 +22,31 @@ public class MainFragment extends Fragment {
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_fragment, container, false);
 
-
         Button startWorkoutButton = view.findViewById(R.id.start_button);
-        startWorkoutButton.setOnClickListener(vieww -> {
-            TimerFragment timerFragment = new TimerFragment();
-            FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
-            timerFragment.show(fragmentTransaction, timerFragment.getTag());
-        });
+        startWorkoutButton.setOnClickListener(
+                vieww -> {
+                    TimerFragment timerFragment = new TimerFragment();
+                    FragmentTransaction fragmentTransaction =
+                            requireActivity().getSupportFragmentManager().beginTransaction();
+                    timerFragment.show(fragmentTransaction, timerFragment.getTag());
+                });
 
         Button trendsButton = view.findViewById(R.id.view_trends);
-        trendsButton.setOnClickListener(vieww -> {
-            requireActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new Trends()).addToBackStack(null).commit();
-        });
-
+        trendsButton.setOnClickListener(
+                vieww -> {
+                    requireActivity()
+                            .getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.fragment_container, new Trends())
+                            .addToBackStack(null)
+                            .commit();
+                });
 
         return view;
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
 
         Button startWorkoutButton = view.findViewById(R.id.start_button);
 

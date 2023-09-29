@@ -9,9 +9,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import java.util.List;
-
 import io.github.haappi.POJOS.UserWorkout;
+
+import java.util.List;
 
 public class WorkoutAdapater extends ArrayAdapter<UserWorkout> {
     private final Context context;
@@ -28,7 +28,9 @@ public class WorkoutAdapater extends ArrayAdapter<UserWorkout> {
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         // Inflate or reuse a layout for each list item view
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.list_item_formatting_workout, parent, false);
+            convertView =
+                    LayoutInflater.from(context)
+                            .inflate(R.layout.list_item_formatting_workout, parent, false);
         }
 
         // Get the UserWorkout object at the current position

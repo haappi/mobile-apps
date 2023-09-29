@@ -7,10 +7,10 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import io.github.haappi.DBHandler;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import io.github.haappi.DBHandler;
 
 public class SavedWorkout {
     private long id;
@@ -62,14 +62,14 @@ public class SavedWorkout {
                 SAVED_WORKOUTS_TABLE,
                 savedWorkout.toContentValues(),
                 "id = ?",
-                new String[]{String.valueOf(savedWorkout.getId())});
+                new String[] {String.valueOf(savedWorkout.getId())});
         return savedWorkout;
     }
 
     public static void deleteSavedWorkout(int savedWorkoutId) {
         SQLiteDatabase database = DBHandler.getInstance().getWritableDatabase();
         database.delete(
-                SAVED_WORKOUTS_TABLE, "id = ?", new String[]{String.valueOf(savedWorkoutId)});
+                SAVED_WORKOUTS_TABLE, "id = ?", new String[] {String.valueOf(savedWorkoutId)});
     }
 
     public static List<SavedWorkout> getWorkoutsForUser(User user) {

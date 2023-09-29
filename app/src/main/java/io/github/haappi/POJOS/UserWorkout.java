@@ -7,10 +7,10 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import io.github.haappi.DBHandler;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import io.github.haappi.DBHandler;
 
 public class UserWorkout {
     private long id;
@@ -60,19 +60,19 @@ public class UserWorkout {
                 WORKOUTS_TABLE,
                 userWorkout.toContentValues(),
                 "id = ?",
-                new String[]{String.valueOf(userWorkout.getId())});
+                new String[] {String.valueOf(userWorkout.getId())});
         return userWorkout;
     }
 
     public static void deleteUserWorkout(int userWorkoutId) {
         SQLiteDatabase database = DBHandler.getInstance().getWritableDatabase();
-        database.delete(WORKOUTS_TABLE, "id = ?", new String[]{String.valueOf(userWorkoutId)});
+        database.delete(WORKOUTS_TABLE, "id = ?", new String[] {String.valueOf(userWorkoutId)});
     }
 
     public static List<UserWorkout> getWorkoutsBetweenTimestamps(long startTime, long endTime) {
         SQLiteDatabase database = DBHandler.getInstance().getReadableDatabase();
         String[] columns = {
-                "id", "user_id", "time", "duration", "custom_name", "workouts_performed"
+            "id", "user_id", "time", "duration", "custom_name", "workouts_performed"
         };
 
         String selection = "time >= ? AND time <= ?";

@@ -35,8 +35,7 @@ public class User {
         this.currentGoal = currentGoal;
     }
 
-    public User() {
-    }
+    public User() {}
 
     @SuppressLint("Range")
     public static User fromCursor(Cursor cursor) {
@@ -76,15 +75,15 @@ public class User {
                 TABLE_NAME,
                 user.toContentValues(),
                 "id = ?",
-                new String[]{
-                        String.valueOf(user.getId())
+                new String[] {
+                    String.valueOf(user.getId())
                 }); // doing it this way to prevent SQL injection
         return user;
     }
 
     public static void deleteUser(int userId) {
         SQLiteDatabase database = DBHandler.getInstance().getWritableDatabase();
-        database.delete(TABLE_NAME, "id = ?", new String[]{String.valueOf(userId)});
+        database.delete(TABLE_NAME, "id = ?", new String[] {String.valueOf(userId)});
     }
 
     public long getId() {

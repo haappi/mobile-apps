@@ -37,12 +37,16 @@ public class MainActivity extends AppCompatActivity {
                     } else if (item.getItemId() == R.id.trends_button) {
                         getSupportFragmentManager()
                                 .beginTransaction()
-                                .replace(R.id.fragment_container, new Trends()).addToBackStack(null).commit();
+                                .replace(R.id.fragment_container, new Trends())
+                                .addToBackStack(null)
+                                .commit();
                         return true;
                     } else if (item.getItemId() == R.id.profile_button) {
                         getSupportFragmentManager()
                                 .beginTransaction()
-                                .replace(R.id.fragment_container, new Profile()).addToBackStack(null).commit();
+                                .replace(R.id.fragment_container, new Profile())
+                                .addToBackStack(null)
+                                .commit();
                         return true;
                     } else if (item.getItemId() == R.id.add_workout) {
                         // chcek if the screen is already on the workout fragment
@@ -53,14 +57,16 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.fragment_container, new MainFragment()).addToBackStack(null)
+                                    .replace(R.id.fragment_container, new MainFragment())
+                                    .addToBackStack(null)
                                     .commit();
                             return true;
                         }
                     } else if (item.getItemId() == R.id.settings_button) {
                         getSupportFragmentManager()
                                 .beginTransaction()
-                                .replace(R.id.fragment_container, new SettingFragment()).addToBackStack(null)
+                                .replace(R.id.fragment_container, new SettingFragment())
+                                .addToBackStack(null)
                                 .commit();
                         return true;
                     } else {
