@@ -14,9 +14,9 @@ import io.github.haappi.R;
 public class WorkoutFragment extends Fragment {
     private static final double PEEK_HEIGHT = 0.80;
 
-    //    public WorkoutFragment() {
-    //        super(R.layout.workout_fragment);
-    //    }
+    public WorkoutFragment() {
+        super(R.layout.workout_fragment);
+    }
 
     @Override
     public View onCreateView(

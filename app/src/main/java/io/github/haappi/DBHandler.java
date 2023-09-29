@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import io.github.haappi.POJOS.User;
 
@@ -40,7 +41,7 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String SETS = "sets";
     private static final String LAST_TIME_PERFORMED = "last_time_performed";
 
-    private static DBHandler instance;
+    private static DBHandler instance = null;
 
     private DBHandler(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -57,6 +58,7 @@ public class DBHandler extends SQLiteOpenHelper {
         if (instance == null) {
             instance = new DBHandler(context);
         }
+        Log.d("DBHandler", "init: " + instance);
     }
 
     public void onCreate(SQLiteDatabase database) {

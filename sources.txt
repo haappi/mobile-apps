@@ -6,3 +6,5 @@ https://stackoverflow.com/questions/18656949/how-to-implement-horizontalscrollvi
 
 "how do i center an item properly on multiple screens in android" -> "i want it to be within thumbs reacbale length (so 2/3 down from the top?)"
 https://m2.material.io/components/bottom-navigation/android
+
+gpt: "im trying to make all my workouts show in a list view, but how do I also add a trash icon to each element in the listview to show a confirmation then delete the workout"
