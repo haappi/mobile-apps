@@ -9,14 +9,12 @@ import android.util.Log;
 import io.github.haappi.POJOS.User;
 
 public class DBHandler extends SQLiteOpenHelper {
-    private static final String DB_NAME = "data";
-    private static final int DB_VERSION = 1;
-
     public static final String TABLE_NAME = "users";
     public static final String WORKOUTS_TABLE = "user_workouts";
     //    private static final String TRENDS_TABLE = "user_trends";
     public static final String SAVED_WORKOUTS_TABLE = "saved_workouts";
-
+    private static final String DB_NAME = "data";
+    private static final int DB_VERSION = 1;
     // -=-=-=-=-=-= users table -=-=-=-=-=-=
     private static final String FIRST_NAME = "first_name";
     private static final String LAST_NAME = "last_name";
@@ -126,7 +124,8 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int previousVersion, int newVersion) {}
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int previousVersion, int newVersion) {
+    }
 
     public User add(User user) {
         SQLiteDatabase database = getWritableDatabase();

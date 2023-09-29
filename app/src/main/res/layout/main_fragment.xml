@@ -9,7 +9,7 @@
     tools:context=".Fragments.MainFragment">
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/play_button2"
+        android:id="@+id/view_trends"
         android:layout_width="210dp"
         android:layout_height="50dp"
         android:layout_marginStart="100dp"
@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/play_button3"
+        android:id="@+id/load_template"
         android:layout_width="210dp"
         android:layout_height="50dp"
         android:layout_marginStart="100dp"
@@ -41,7 +41,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/play_button"
+        android:id="@+id/start_button"
         android:layout_width="210dp"
         android:layout_height="50dp"
         android:layout_marginStart="88dp"
