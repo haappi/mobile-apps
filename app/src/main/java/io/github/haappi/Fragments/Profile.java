@@ -39,6 +39,7 @@ public class Profile extends Fragment {
         long sevenDaysAgo = System.currentTimeMillis() - (604800 * 1000);
         List<UserWorkout> workouts =
                 UserWorkout.getWorkoutsBetweenTimestamps(System.currentTimeMillis(), sevenDaysAgo);
+        workoutCount.setText(workouts.size() + " workouts in the past week");
 
         WorkoutAdapater adapter = new WorkoutAdapater(view.getContext(), workouts);
         savedWorkouts.setAdapter(adapter);

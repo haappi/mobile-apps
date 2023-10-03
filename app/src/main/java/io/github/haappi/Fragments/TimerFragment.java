@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -19,6 +20,9 @@ public class TimerFragment extends BottomSheetDialogFragment {
     private RecyclerView recyclerView; // for hortionzal scrolling between excrises
     private ListView workoutsInList;
     private Button endWorkout;
+    private Chronometer chronometer;
+    private Long lastUpdate = 0L;
+    private boolean running = false;
 
     public TimerFragment() {
         throw new RuntimeException("Not implelemted yet dingus");

@@ -16,6 +16,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import io.github.haappi.POJOS.User;
+
 public class OnboardingThree extends Fragment {
     public void goBackToMain() {
         Intent intent = new Intent(getActivity(), MainActivity.class);
@@ -40,6 +42,12 @@ public class OnboardingThree extends Fragment {
             SharedViewModel.getInstance().setData("weight", weight.getText().toString());
             SharedViewModel.getInstance().setData("state", state.isChecked() ? 1 : 0);
 
+            User user = new User();
+            user.setFirstName((String) SharedViewModel.getInstance().getData("name"));
+            user.setMetric((Integer) SharedViewModel.getInstance().getData("state"));
+            user.setHeight(Integer.parseInt((String) SharedViewModel.getInstance().getData("height")));
+            user.setWeight(Integer.parseInt((String) SharedViewModel.getInstance().getData("weight")));
+            User.createUser(user);
 //            BottomNavigationView bottomNavigationView = view.findViewById(R.id.nav_bar);
 //            bottomNavigationView.setVisibility(View.VISIBLE);
             goBackToMain();

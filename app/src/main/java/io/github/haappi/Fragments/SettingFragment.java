@@ -36,17 +36,13 @@ public class SettingFragment extends Fragment {
         User user = User.getUser(0);
         ToggleButton toggleButton = view.findViewById(R.id.metricCustomaryToggle);
         toggleButton.setOnCheckedChangeListener(
-                new CompoundButton.OnCheckedChangeListener() {
-
-                    @Override
-                    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                        if (b) {
-                            user.setMetric(1);
-                        } else {
-                            user.setMetric(0);
-                        }
-                        DBHandler.getInstance().update(user);
+                (compoundButton, b) -> {
+                    if (b) {
+                        user.setMetric(1);
+                    } else {
+                        user.setMetric(0);
                     }
+                    DBHandler.getInstance().update(user);
                 });
 
         AppCompatButton saveButton = view.findViewById(R.id.save_button);
