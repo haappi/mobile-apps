@@ -13,8 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-import io.github.haappi.R;
-
 public class TimerFragment extends BottomSheetDialogFragment {
     private TextView timer;
     private RecyclerView recyclerView; // for hortionzal scrolling between excrises
@@ -31,9 +29,9 @@ public class TimerFragment extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        View view = inflater.inflate(R.layout.timer_layout, container, false);
-//
-//        timer = view.findViewById(R.id.timer);
+        //        View view = inflater.inflate(R.layout.timer_layout, container, false);
+        //
+        //        timer = view.findViewById(R.id.timer);
         return null;
     }
 }

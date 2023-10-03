@@ -6,18 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import java.util.List;
-
-import io.github.haappi.POJOS.User;
-import io.github.haappi.POJOS.UserWorkout;
 
 public class Onboarding extends Fragment {
     public void goBackToMain() {
@@ -36,20 +28,23 @@ public class Onboarding extends Fragment {
 
         Button savedWorkouts = view.findViewById(R.id.lets_go_button);
 
-        savedWorkouts.setOnClickListener(vieww -> {
-            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
+        savedWorkouts.setOnClickListener(
+                vieww -> {
+                    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                    FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-            // Set the custom animations
-            transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left,
-                    R.anim.slide_in_right, R.anim.slide_out_left);
+                    // Set the custom animations
+                    transaction.setCustomAnimations(
+                            R.anim.slide_in_right,
+                            R.anim.slide_out_left,
+                            R.anim.slide_in_right,
+                            R.anim.slide_out_left);
 
-            // Replace the current fragment with the new fragment
-            transaction.replace(R.id.fragment_container, new OnboardingTwo());
-            transaction.commit();
-        });
+                    // Replace the current fragment with the new fragment
+                    transaction.replace(R.id.fragment_container, new OnboardingTwo());
+                    transaction.commit();
+                });
 
         return view;
     }
-
 }

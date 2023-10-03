@@ -29,25 +29,28 @@ public class OnboardingTwo extends Fragment {
 
         Button savedWorkouts = view.findViewById(R.id.lets_go_button);
 
-        savedWorkouts.setOnClickListener(vieww -> {
-            EditText name = view.findViewById(R.id.name_input);
-            EditText age = view.findViewById(R.id.age_input);
+        savedWorkouts.setOnClickListener(
+                vieww -> {
+                    EditText name = view.findViewById(R.id.name_input);
+                    EditText age = view.findViewById(R.id.age_input);
 
+                    SharedViewModel.getInstance().setData("name", name.getText().toString());
+                    SharedViewModel.getInstance().setData("age", age.getText().toString());
 
-            SharedViewModel.getInstance().setData("name", name.getText().toString());
-            SharedViewModel.getInstance().setData("age", age.getText().toString());
+                    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                    FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
+                    // Set the custom animations
+                    transaction.setCustomAnimations(
+                            R.anim.slide_in_right,
+                            R.anim.slide_out_left,
+                            R.anim.slide_in_right,
+                            R.anim.slide_out_left);
 
-            // Set the custom animations
-            transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left,
-                    R.anim.slide_in_right, R.anim.slide_out_left);
-
-            // Replace the current fragment with the new fragment
-            transaction.replace(R.id.fragment_container, new OnboardingThree());
-            transaction.commit();
-        });
+                    // Replace the current fragment with the new fragment
+                    transaction.replace(R.id.fragment_container, new OnboardingThree());
+                    transaction.commit();
+                });
 
         return view;
     }
