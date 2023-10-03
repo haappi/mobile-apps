@@ -27,9 +27,9 @@ public class TimerFragment extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.timer_layout, container, false);
-
-        timer = view.findViewById(R.id.timer);
-        return view;
+//        View view = inflater.inflate(R.layout.timer_layout, container, false);
+//
+//        timer = view.findViewById(R.id.timer);
+        return null;
     }
 }

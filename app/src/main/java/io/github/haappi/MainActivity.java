@@ -2,6 +2,7 @@ package io.github.haappi;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +13,7 @@ import io.github.haappi.Fragments.Profile;
 import io.github.haappi.Fragments.SettingFragment;
 import io.github.haappi.Fragments.Trends;
 import io.github.haappi.Fragments.WorkoutFragment;
+import io.github.haappi.POJOS.User;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,13 +23,24 @@ public class MainActivity extends AppCompatActivity {
         DBHandler.init(this);
         setContentView(R.layout.main_activity);
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, new MainFragment())
-                .commit();
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.nav_bar);
+        bottomNavigationView.setVisibility(View.VISIBLE);
         bottomNavigationView.setSelectedItemId(R.id.add_workout);
+
+        if (User.getUser(0) == null) {
+            bottomNavigationView.setVisibility(View.GONE);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, new Onboarding())
+                    .commit();
+        } else {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, new MainFragment())
+                    .commit();
+
+        }
+
 
         bottomNavigationView.setOnItemSelectedListener(
                 item -> {

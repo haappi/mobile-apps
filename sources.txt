@@ -10,3 +10,6 @@ https://m2.material.io/components/bottom-navigation/android
 gpt: "im trying to make all my workouts show in a list view, but how do I also add a trash icon to each element in the listview to show a confirmation then delete the workout"
 https://www.geeksforgeeks.org/how-to-implement-multiselect-dropdown-in-android/#
 gpt: "how do i make a thing in android that has a fragment that's always popping up a little bit from the top of the screen that I can then swiipe down to fully reveal the fragment and all items in it"
+
+gpt: how do i transition to another fragment with a slide animation from the right to the left
+

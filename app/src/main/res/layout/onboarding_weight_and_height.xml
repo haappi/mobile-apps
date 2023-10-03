@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f5fff7"
-    tools:context=".Onboarding">
+    tools:context=".OnboardingThree">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_top_two_thirds"
@@ -27,7 +27,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="120dp"
         android:fontFamily="@font/jua"
         android:text="Fix this stupid name later"
         android:textAlignment="center"
@@ -35,19 +35,74 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <EditText
+        android:id="@+id/weight_input"
         android:layout_width="130dp"
         android:layout_height="48dp"
         android:background="@drawable/button_light_green"
         android:fontFamily="@font/jua"
-        android:text="Lets go!"
+        android:hint="Weight"
+        android:inputType="numberSigned"
+        android:textAlignment="center"
         android:textAllCaps="false"
         android:textSize="28dp"
         app:layout_constraintBottom_toBottomOf="@+id/guideline_top_two_thirds"
         app:layout_constraintLeft_toLeftOf="@+id/guideline_horizontal_center"
         app:layout_constraintRight_toRightOf="@+id/guideline_horizontal_center"
-        app:layout_constraintTop_toTopOf="@+id/guideline_top_two_thirds"
+        app:layout_constraintTop_toTopOf="@+id/height_input" />
 
-        />
+    <EditText
+        android:id="@+id/height_input"
+        android:layout_width="130dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="141dp"
+        android:layout_marginTop="350dp"
+        android:layout_marginEnd="140dp"
+        android:layout_marginBottom="493dp"
+        android:background="@drawable/button_light_green"
+        android:fontFamily="@font/jua"
+        android:hint="Height"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/lets_go_button"
+        android:layout_width="130dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="690dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="130dp"
+        android:background="@drawable/button_light_green"
+        android:fontFamily="@font/jua"
+        android:text="next"
+        android:textAllCaps="false"
+        android:textSize="28dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.047"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ToggleButton
+        android:id="@+id/toggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="161dp"
+        android:layout_marginTop="641dp"
+        android:layout_marginEnd="162dp"
+        android:layout_marginBottom="202dp"
+        android:textOff="Metric"
+        android:textOn="Customary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -38,6 +38,7 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String NAME = "name";
     private static final String SETS = "sets";
     private static final String LAST_TIME_PERFORMED = "last_time_performed";
+    private static final String WORKOUT_TYPE = "workout_type";
 
     private static DBHandler instance = null;
 
@@ -94,7 +95,7 @@ public class DBHandler extends SQLiteOpenHelper {
                         + CUSTOM_NAME
                         + " TEXT, "
                         + workoutsPerformed
-                        + " INTEGER"
+                        + " TEXT"
                         + ")";
         database.execSQL(createTable);
 
@@ -118,7 +119,9 @@ public class DBHandler extends SQLiteOpenHelper {
                         + SETS
                         + " INTEGER, "
                         + LAST_TIME_PERFORMED
-                        + " INTEGER"
+                        + " INTEGER, "
+                        + WORKOUT_TYPE
+                        + " TEXT"
                         + ")";
         database.execSQL(createTable);
     }
